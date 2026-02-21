@@ -1,0 +1,48 @@
+.filters { display:flex; gap:12px; align-items:center; }
+
+.chip {
+    padding: 6px 14px;
+    border-radius: 12px;
+    border: none;
+    background: #b5adad;
+    cursor: pointer;
+    font: inherit;
+}
+
+.picker { position: relative; }
+
+.popover {
+    position: absolute;
+    top: calc(100% + 8px);
+    left: 0;
+    z-index: 20;
+}
+
+.cal {
+    width: 280px;
+    border-radius: 14px;
+    background: #fff;
+    padding: 12px;
+    box-shadow: 0 12px 30px rgba(0,0,0,.18);
+}
+
+.cal__head { display:flex; justify-content:space-between; align-items:center; margin-bottom:10px; }
+.cal__nav { border:none; background:#eee; border-radius:10px; padding:6px 10px; cursor:pointer; }
+.cal__title { font-weight:600; }
+
+.cal__dow, .cal__grid { display:grid; grid-template-columns: repeat(7, 1fr); gap:6px; }
+.cal__dow span { text-align:center; font-size:12px; opacity:.7; }
+
+.cal__cell {
+    border: none;
+    background: #f2f2f2;
+    border-radius: 10px;
+    padding: 8px 0;
+    cursor: pointer;
+}
+.cal__cell--empty { background: transparent; }
+.cal__cell.is-selected { background: #b5adad; color: #000; }
+
+.cal__actions { display:flex; justify-content:space-between; margin-top:10px; }
+.cal__btn { border:none; background:#eee; border-radius:10px; padding:8px 10px; cursor:pointer; }
+.cal__btn--primary { background:#b5adad; }

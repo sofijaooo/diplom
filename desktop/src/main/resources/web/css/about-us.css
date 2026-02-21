@@ -1,0 +1,29 @@
+.accordion { display: grid; gap: 10px; }
+
+.acc-item {
+    border-radius: 12px;
+    background: #f2f2f2;
+    padding: 10px 12px;
+}
+
+.acc-title {
+    cursor: pointer;
+    font-weight: 600;
+    list-style: none;
+}
+
+.acc-title::-webkit-details-marker { display: none; }
+
+.acc-title::after {
+    content: "▾";
+    float: right;
+}
+
+.acc-item[open] .acc-title::after {
+    content: "▴";
+}
+
+.acc-content {
+    padding-top: 8px;
+    opacity: 0.9;
+}

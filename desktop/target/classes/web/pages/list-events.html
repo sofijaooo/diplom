@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <title>Події</title>
+    <script src="../js/date-picker.js" defer></script>
+    <link rel="stylesheet" href="../css/list-events.css">
+</head>
+<body>
+<header class="topbar">
+    <h1>StreetArt Live</h1>
+    <nav>
+        <a href="../index.html">Головна</a>
+        <a href="pages/map.html">Мапа виступів</a>
+        <a href="pages/list-events.html">Список виступів</a>
+        <a href="performers.html">Виконавці</a>
+        <a href="about-us.html">Про платформу</a>
+        <a href="#">Налаштування</a>
+        <a href="#">Акаунт</a>
+    </nav>
+</header>
+<main>
+    <h1>Події</h1>
+    <div>
+        <label class="control-label" for="search">Пошук</label>
+        <input
+                id="search"
+                class="control-input"
+                type="search"
+                placeholder="Пошук подій або митців"
+                autocomplete="off"
+        />
+    </div>
+    <div>
+        <label class="visually-hidden" >Фільтри</label>
+        <div class="filters" role="group" aria-label="Фільтри за датою та часом">
+            <!-- Дата: чип-кнопка -->
+            <div class="picker">
+                <button class="chip" type="button" id="dateBtn" aria-haspopup="dialog" aria-expanded="false">
+                    <span id="dateLabel">Дата</span>
+                </button>
+                <!-- вікно з датою -->
+                <div class="popover" id="datePopover" role="dialog" aria-label="Вибір дати" hidden>
+                    <div class="cal">
+                        <div class="cal__head">
+                            <button type="button" class="cal__nav" id="prevMonth" aria-label="Попередній місяць">‹</button>
+                            <div class="cal__title" id="monthTitle">Січень 2026</div>
+                            <button type="button" class="cal__nav" id="nextMonth" aria-label="Наступний місяць">›</button>
+                        </div>
+                        <div class="cal__dow">
+                            <span>Пн</span><span>Вт</span><span>Ср</span><span>Чт</span><span>Пт</span><span>Сб</span><span>Нд</span>
+                        </div>
+                        <div class="cal__grid" id="calGrid"></div>
+                        <div class="cal__actions">
+                            <button type="button" class="cal__btn" id="clearDate">Очистити</button>
+                            <button type="button" class="cal__btn cal__btn--primary" id="closeDate">Готово</button>
+                        </div>
+                    </div>
+                </div>
+                <input type="hidden" id="dateValue" name="date" value="">
+            </div>
+        </div>
+        <select name="" id="">
+            <option value="" selected disabled>Час</option>
+            <option value="06-07">06:00–07:00</option>
+            <option value="07-08">07:00–08:00</option>
+            <option value="08-09">08:00–09:00</option>
+            <option value="09-10">09:00–10:00</option>
+            <option value="10-11">10:00–11:00</option>
+            <option value="11-12">11:00–12:00</option>
+            <option value="12-13">12:00–13:00</option>
+            <option value="13-14">13:00–14:00</option>
+            <option value="14-15">14:00–15:00</option>
+            <option value="15-16">15:00–16:00</option>
+            <option value="16-17">16:00–17:00</option>
+            <option value="17-18">17:00–18:00</option>
+            <option value="18-19">18:00–19:00</option>
+            <option value="19-20">19:00–20:00</option>
+            <option value="20-21">20:00–21:00</option>
+            <option value="21-22">21:00–22:00</option>
+        </select>
+    </div>
+    <button>Застосувати фільтри</button>
+<!--    карта-->
+
+</main>
+</body>
+</html>
