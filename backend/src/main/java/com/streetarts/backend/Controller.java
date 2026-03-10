@@ -22,7 +22,7 @@ public class Controller {
 
     @GetMapping("/api/first-match-id")
     public Map<String, Object> firstMatchId() {
-        String sql = "SELECT match_id FROM raw.matches LIMIT 1;";
+        String sql = "SELECT event_id FROM events LIMIT 1;";
 
         try (Connection con = dataSource.getConnection();
              PreparedStatement ps = con.prepareStatement(sql);

@@ -11,9 +11,9 @@ import java.sql.ResultSet;
 @Component
 public class DbCheck implements CommandLineRunner {
 
-    private static final String URL  = "jdbc:postgresql://localhost:5432/postgres";
+    private static final String URL  = "jdbc:postgresql://localhost:5432/streetartlive";
     private static final String USER = "postgres";
-    private static final String PASS = "postgres"; // change
+    private static final String PASS = "gugugaga"; // change
 
     @Override
     public void run(String... args) {
