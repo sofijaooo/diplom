@@ -35,7 +35,16 @@
             <artifactId>shared</artifactId>
             <version>${project.version}</version>
         </dependency>
+
+        <!--    карта-->
+
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <optional>true</optional>
+        </dependency>
     </dependencies>
+
 
     <build>
         <plugins>

@@ -46,3 +46,93 @@
 .cal__actions { display:flex; justify-content:space-between; margin-top:10px; }
 .cal__btn { border:none; background:#eee; border-radius:10px; padding:8px 10px; cursor:pointer; }
 .cal__btn--primary { background:#b5adad; }
+
+/*event card*/
+.event-card {
+    background: rgba(255,255,255,0.04);
+    backdrop-filter: blur(6px);
+
+    border-radius: 14px;
+    padding: 16px 18px;
+
+    border: 1px solid rgba(255,255,255,0.08);
+
+    box-shadow: 0 8px 30px rgba(0,0,0,0.3);
+
+    /*max-width: 600px;*/
+    margin-bottom: 16px;
+    /*font-family: sans-serif;*/
+
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+/* строки */
+.event-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 12px;
+}
+
+/* верх */
+.event-date-time {
+    display: flex;
+    gap: 12px;
+    font-weight: 700;
+    font-size: 16px;
+}
+
+/* низ */
+.event-user {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex-shrink: 0;
+}
+
+.event-avatar {
+    width: 38px;
+    height: 38px;
+    background: #d9d9d9;
+    border-radius: 50%;
+}
+
+.event-username {
+    font-size: 15px;
+    color: #222;
+}
+
+/* адрес — ключевой блок */
+.event-place {
+    font-size: 14px;
+    color: #333;
+    text-align: right;
+    line-height: 1.3;
+
+    max-width: 60%;
+
+    word-break: break-word;
+    overflow-wrap: anywhere;
+}
+
+/* кнопка */
+.event-btn {
+    background: #9b9090;
+    color: #fff;
+    border: none;
+    padding: 8px 14px;
+    border-radius: 10px;
+    font-size: 13px;
+    cursor: pointer;
+    flex-shrink: 0;
+    transition: 0.2s;
+}
+
+.event-btn:hover {
+    background: #7f7575;
+}
+#eventsList{
+    width: 100%;
+}
