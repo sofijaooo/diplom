@@ -10,7 +10,11 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import java.util.List;
+import org.springframework.web.bind.annotation.*;
+
+import com.streetarts.backend.dto.EventMapDto;
+import org.springframework.web.bind.annotation.*;
+
 @RestController
 @RequestMapping("/api/events")
 @CrossOrigin(origins = "*")
@@ -25,5 +29,14 @@ public class EventController {
     @GetMapping
     public List<Event> searchEvents(@RequestParam(name = "search", required = false) String search) {
         return service.searchEvents(search);
+    }
+    @PostMapping
+    public Event createEvent(@RequestBody Event event) {
+        return service.createEvent(event);
+    }
+
+    @GetMapping("/map")
+    public List<EventMapDto> getEventsForMap() {
+        return service.getEventsForMap();
     }
 }

@@ -49,12 +49,19 @@
 
 /*event card*/
 .event-card {
-    background: #f3f3f3;
+    background: rgba(255,255,255,0.04);
+    backdrop-filter: blur(6px);
+
     border-radius: 14px;
     padding: 16px 18px;
-    max-width: 600px;
+
+    border: 1px solid rgba(255,255,255,0.08);
+
+    box-shadow: 0 8px 30px rgba(0,0,0,0.3);
+
+    /*max-width: 600px;*/
     margin-bottom: 16px;
-    font-family: sans-serif;
+    /*font-family: sans-serif;*/
 
     display: flex;
     flex-direction: column;

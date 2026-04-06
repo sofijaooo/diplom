@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Карта подій</title>
+
+    <link
+            rel="stylesheet"
+            href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+            crossorigin=""
+    />
+
+    <style>
+        html, body, #map {
+            width: 100%;
+            height: 100%;
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+            background: #1c1d21;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+        }
+
+        .leaflet-container {
+            width: 100%;
+            height: 100%;
+            background: #1c1d21;
+        }
+
+        .leaflet-container img,
+        .leaflet-pane img,
+        .leaflet-tile {
+            max-width: none !important;
+            max-height: none !important;
+        }
+        /*.leaflet-tile {*/
+        /*    filter: brightness(1.4);*/
+        /*}*/
+        .leaflet-popup-content {
+            font-size: 14px;
+            line-height: 1.45;
+        }
+
+        .popup-title {
+            margin-bottom: 8px;
+            font-size: 15px;
+            font-weight: 700;
+        }
+
+        .popup-row {
+            margin-bottom: 4px;
+        }
+    </style>
+</head>
+<body>
+<div id="map"></div>
+
+<script>
+    window.L_DISABLE_3D = true;
+</script>
+
+<script
+        src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+        crossorigin=""
+></script>
+
+<script>
+    const map = L.map('map', {
+        zoomControl: true,
+        fadeAnimation: false,
+        markerZoomAnimation: false,
+        zoomAnimation: false
+    }).setView([50.9077, 34.7981], 13);
+
+    L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', {
+        attribution: '&copy; OpenStreetMap & CARTO'
+    }).addTo(map);
+
+    async function loadEventsToMap() {
+        try {
+            const response = await fetch('http://localhost:8080/api/events/map');
+
+            if (!response.ok) {
+                throw new Error(`HTTP error: ${response.status}`);
+            }
+
+            const events = await response.json();
+            console.log('EVENTS:', events);
+
+            if (!Array.isArray(events)) {
+                throw new Error('Відповідь сервера не є масивом');
+            }
+
+            const bounds = [];
+
+            events.forEach(event => {
+                if (event.latitude == null || event.longitude == null) {
+                    return;
+                }
+
+                const lat = Number(event.latitude);
+                const lng = Number(event.longitude);
+
+                if (Number.isNaN(lat) || Number.isNaN(lng)) {
+                    console.warn('Некоректні координати:', event);
+                    return;
+                }
+
+                const icon = L.divIcon({
+                    className: '',
+                    html: `
+        <div style="
+            width:14px;
+            height:14px;
+            background:#ff3b30;
+            border-radius:50%;
+            box-shadow:0 0 0 4px rgba(255,59,48,0.2);
+        "></div>
+    `,
+                    iconSize: [14, 14],
+                    iconAnchor: [7, 7]
+                });
+
+                const marker = L.marker([lat, lng], { icon }).addTo(map);
+
+                marker.bindPopup(`
+    <div class="popup-title">Подія #${event.id ?? '-'}</div>
+    <div class="popup-row"><b>Місце:</b> ${event.place ?? '-'}</div>
+    <div class="popup-row"><b>Дата:</b> ${event.eventDate ?? '-'}</div>
+    <div class="popup-row"><b>Час:</b> ${event.time ?? '-'}</div>
+`);
+
+                bounds.push([lat, lng]);
+            });
+
+            if (bounds.length === 1) {
+                map.setView(bounds[0], 17);
+            } else if (bounds.length > 1) {
+                map.fitBounds(bounds, { padding: [30, 30] });
+            }
+
+            setTimeout(() => {
+                map.invalidateSize();
+            }, 300);
+
+        } catch (error) {
+            console.error('Помилка завантаження карти:', error);
+        }
+    }
+
+    window.addEventListener('load', () => {
+        setTimeout(() => {
+            map.invalidateSize();
+            loadEventsToMap();
+        }, 200);
+    });
+
+    window.addEventListener('resize', () => {
+        map.invalidateSize();
+    });
+</script>
+</body>
+</html>

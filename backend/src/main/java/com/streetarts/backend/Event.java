@@ -33,6 +33,10 @@ public class Event {
     @Column(name = "decision")
     private Boolean decision;      // решение (true/false/null)
 
+    private Double latitude;
+
+    private Double longitude;
+
     // --- Геттеры и сеттеры ---
 
     public Long getId() {
@@ -97,5 +101,21 @@ public class Event {
 
     public void setDecision(Boolean decision) {
         this.decision = decision;
+    }
+
+    public Double getLatitude() {
+        return latitude;
+    }
+
+    public void setLatitude(Double latitude) {
+        this.latitude = latitude;
+    }
+
+    public Double getLongitude() {
+        return longitude;
+    }
+
+    public void setLongitude(Double longitude) {
+        this.longitude = longitude;
     }
 }
