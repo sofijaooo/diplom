@@ -47,7 +47,9 @@ function renderEvents(events) {
 
         <div class="event-row event-row-bottom">
             <div class="event-user">
-                <div class="event-avatar"></div>
+                <div class="event-avatar">
+                    <img src="${artist.avatar_url}" alt="avatar">
+                </div>
                 <span class="event-username">${event.userId}</span>
             </div>
 

@@ -1,0 +1,98 @@
+/* контейнер карточек */
+#artistsList {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+}
+
+/* карточка */
+.artist-card {
+    background: #1c1c1e;
+    border-radius: 14px;
+    padding: 16px;
+    color: #fff;
+    transition: 0.2s ease;
+    border: 1px solid rgba(255,255,255,0.05);
+}
+
+.artist-card:hover {
+    background: #242426;
+    transform: translateY(-2px);
+}
+
+/* верх */
+.artist-top {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+}
+
+/* аватар */
+.artist-avatar {
+    width: 52px;
+    height: 52px;
+    border-radius: 50%;
+    overflow: hidden;
+    flex-shrink: 0;
+    background: #2c2c2e;
+}
+
+.artist-avatar img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+/* основная инфа */
+.artist-main {
+    display: flex;
+    flex-direction: column;
+}
+
+/* имя */
+.artist-name {
+    font-size: 18px;
+    font-weight: 600;
+    font-family: 'Unbounded', sans-serif;
+}
+
+/* мета */
+.artist-meta {
+    display: flex;
+    gap: 10px;
+    margin-top: 4px;
+    font-size: 13px;
+    color: #a1a1a6;
+}
+
+/* жанр как тег */
+.artist-genre {
+    background: rgba(255,255,255,0.08);
+    padding: 2px 8px;
+    border-radius: 8px;
+}
+
+/* описание */
+.artist-about {
+    margin-top: 12px;
+    font-size: 14px;
+    line-height: 1.4;
+    color: #d1d1d6;
+}
+
+
+.artist-avatar {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    overflow: hidden;
+    flex-shrink: 0;
+    background: #2c2c2e;
+}
+
+.artist-avatar img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
