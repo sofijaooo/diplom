@@ -26,10 +26,18 @@ public class EventController {
         this.service = service;
     }
 
-    @GetMapping
-    public List<Event> searchEvents(@RequestParam(name = "search", required = false) String search) {
-        return service.searchEvents(search);
-    }
+//    @GetMapping
+//    public List<Event> searchEvents(@RequestParam(name = "search", required = false) String search) {
+//        return service.searchEvents(search);
+//    }
+@GetMapping
+public List<Event> searchEvents(
+        @RequestParam(name = "search", required = false) String search,
+        @RequestParam(name = "date", required = false) String date,
+        @RequestParam(name = "time", required = false) String time
+) {
+    return service.searchEvents(search, date, time);
+}
     @PostMapping
     public Event createEvent(@RequestBody Event event) {
         return service.createEvent(event);

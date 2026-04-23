@@ -279,9 +279,49 @@
 
 
     // 👇 ВОТ ЭТО ДОБАВЛЯЕШЬ
+    // window.addEventListener("message", (event) => {
+    //     if (event.data.type === "SET_THEME") {
+    //         applyTheme(event.data.theme);
+    //     }
+    // });
+
+    const markersById = new Map();
+
     window.addEventListener("message", (event) => {
+        if (!event.data) return;
+
         if (event.data.type === "SET_THEME") {
             applyTheme(event.data.theme);
+        }
+
+        if (event.data.type === "FOCUS_EVENT") {
+            const focusEvent = event.data.event;
+            if (!focusEvent) return;
+
+            const id = String(focusEvent.id ?? "");
+            const marker = markersById.get(id);
+
+            if (marker) {
+                const lat = Number(focusEvent.latitude);
+                const lng = Number(focusEvent.longitude);
+
+                if (!Number.isNaN(lat) && !Number.isNaN(lng)) {
+                    map.setView([lat, lng], 17, { animate: true });
+                }
+
+                setTimeout(() => {
+                    marker.openPopup();
+                }, 250);
+
+                return;
+            }
+
+            const lat = Number(focusEvent.latitude);
+            const lng = Number(focusEvent.longitude);
+
+            if (!Number.isNaN(lat) && !Number.isNaN(lng)) {
+                map.setView([lat, lng], 17, { animate: true });
+            }
         }
     });
 
@@ -362,6 +402,10 @@
         </div>
     </div>
 `);
+
+                if (event.id != null) {
+                    markersById.set(String(event.id), marker);
+                }
 
                 bounds.push([lat, lng]);
             });

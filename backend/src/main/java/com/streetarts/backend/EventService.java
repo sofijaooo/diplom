@@ -5,6 +5,10 @@ import javax.sql.DataSource;
 import java.sql.Connection;
 import java.util.List;
 
+import java.time.LocalDate;
+import java.time.LocalTime;
+import java.util.stream.Collectors;
+
 import com.streetarts.backend.dto.EventMapDto;
 
 @Service
@@ -23,19 +27,47 @@ public class EventService {
     }
 
     // поиск по месту
-    public List<Event> searchEvents(String query) {
-        try (Connection con = dataSource.getConnection()) {
-            if (!con.isValid(2)) {
-                System.out.println("[EVENT DB] Warning: connection not valid");
-            }
-        } catch (Exception e) {
-            System.out.println("[EVENT DB] Exception: " + e.getMessage());
-        }
+//    public List<Event> searchEvents(String query) {
+//        try (Connection con = dataSource.getConnection()) {
+//            if (!con.isValid(2)) {
+//                System.out.println("[EVENT DB] Warning: connection not valid");
+//            }
+//        } catch (Exception e) {
+//            System.out.println("[EVENT DB] Exception: " + e.getMessage());
+//        }
+//
+//        if (query == null || query.isBlank()) {
+//            return repository.findAll();
+//        }
+//        return repository.findByPlaceContainingIgnoreCase(query);
+//    }
 
-        if (query == null || query.isBlank()) {
-            return repository.findAll();
-        }
-        return repository.findByPlaceContainingIgnoreCase(query);
+    public List<Event> searchEvents(String search, String date, String time) {
+        List<Event> events = repository.findAll();
+
+        return events.stream()
+                .filter(event ->
+                        search == null || search.isBlank() ||
+                                event.getPlace().toLowerCase().contains(search.toLowerCase()) ||
+                                String.valueOf(event.getUserId()).contains(search)
+                )
+                .filter(event ->
+                        date == null || date.isBlank() ||
+                                event.getEventDate().equals(LocalDate.parse(date))
+                )
+                .filter(event -> {
+                    if (time == null || time.isBlank()) return true;
+
+                    String[] parts = time.split("-");
+                    if (parts.length != 2) return true;
+
+                    int fromHour = Integer.parseInt(parts[0]);
+                    int toHour = Integer.parseInt(parts[1]);
+
+                    LocalTime eventTime = event.getTime();
+                    return eventTime.getHour() >= fromHour && eventTime.getHour() < toHour;
+                })
+                .collect(Collectors.toList());
     }
 
     // создание события
