@@ -9,6 +9,8 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Stalinist+One&family=Unbounded:wght@200..900&display=swap" rel="stylesheet">
+
+    <script src="../js/map.js" defer></script>
 </head>
 
 <body>
@@ -68,10 +70,81 @@
     </nav>
 </header>
 <main class="content">
-    <h1>Інтерактивна карта подій</h1>
+    <h1>Інтерактивна мапа подій</h1>
 
+    <div class="map-toolbar">
+        <div class="map-theme-switch">
+            <span class="map-theme-label">Dark</span>
+
+            <label class="switch">
+                <input type="checkbox" id="mapThemeToggle">
+                <span class="slider"></span>
+            </label>
+
+            <span class="map-theme-label">Light</span>
+        </div>
+    </div>
+<!--<style>-->
+<!--    .map-theme-switch {-->
+<!--        display: flex;-->
+<!--        align-items: center;-->
+<!--        gap: 12px;-->
+<!--        margin-bottom: 16px;-->
+<!--    }-->
+
+<!--    .map-theme-label {-->
+<!--        font-size: 13px;-->
+<!--        color: #9ea3ad;-->
+<!--    }-->
+
+<!--    /* switch */-->
+<!--    .switch {-->
+<!--        position: relative;-->
+<!--        display: inline-block;-->
+<!--        width: 52px;-->
+<!--        height: 28px;-->
+<!--    }-->
+
+<!--    .switch input {-->
+<!--        opacity: 0;-->
+<!--        width: 0;-->
+<!--        height: 0;-->
+<!--    }-->
+
+<!--    .slider {-->
+<!--        position: absolute;-->
+<!--        inset: 0;-->
+<!--        background: rgba(255,255,255,0.15);-->
+<!--        border-radius: 999px;-->
+<!--        cursor: pointer;-->
+<!--        transition: 0.3s;-->
+<!--    }-->
+
+<!--    /* кружок */-->
+<!--    .slider::before {-->
+<!--        content: "";-->
+<!--        position: absolute;-->
+<!--        height: 22px;-->
+<!--        width: 22px;-->
+<!--        left: 3px;-->
+<!--        top: 3px;-->
+<!--        background: #fff;-->
+<!--        border-radius: 50%;-->
+<!--        transition: 0.3s;-->
+<!--    }-->
+
+<!--    /* включено */-->
+<!--    .switch input:checked + .slider {-->
+<!--        background: linear-gradient(135deg, #ff1d00, rgba(255,0,0,0.6));-->
+<!--    }-->
+
+<!--    .switch input:checked + .slider::before {-->
+<!--        transform: translateX(24px);-->
+<!--    }-->
+<!--</style>-->
     <div class="map-card">
         <iframe
+                id="mapFrame"
                 class="map-frame"
                 src="leaflet-map.html"
                 loading="lazy"

@@ -34,7 +34,7 @@ function renderEvents(events) {
         const el = document.createElement("div");
         el.className = "event-card";
         el.innerHTML = `
-           <div class="event-card">
+
 
         <div class="event-row event-row-top">
             <div class="event-date-time">
@@ -48,7 +48,7 @@ function renderEvents(events) {
         <div class="event-row event-row-bottom">
             <div class="event-user">
                 <div class="event-avatar">
-                    <img src="${artist.avatar_url}" alt="avatar">
+
                 </div>
                 <span class="event-username">${event.userId}</span>
             </div>
@@ -58,7 +58,6 @@ function renderEvents(events) {
             </div>
         </div>
 
-    </div>  
         `;
         eventsContainer.appendChild(el);
     });

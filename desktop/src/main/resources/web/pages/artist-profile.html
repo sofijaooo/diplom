@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <title>Профіль митця</title>
+
+    <link rel="stylesheet" href="../css/app.css" />
+    <link rel="stylesheet" href="../css/artist-profile.css" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Stalinist+One&family=Unbounded:wght@200..900&display=swap" rel="stylesheet">
+
+    <script src="../js/artist-profile.js" defer></script>
+</head>
+<body>
+<header class="topbar">
+    <h1 class="logo">StreetArt Live</h1>
+    <nav class="navbar">
+        <div><a href="../index.html">Головна</a></div>
+        <div><a href="map.html">Мапа виступів</a></div>
+        <div><a href="list-events.html">Список виступів</a></div>
+        <div><a href="performers.html">Виконавці</a></div>
+        <div><a href="about-us.html">Про платформу</a></div>
+        <div><a href="#">Налаштування</a></div>
+        <div><a href="#">Акаунт</a></div>
+    </nav>
+</header>
+
+<main class="artist-profile-page">
+    <section class="artist-hero-card">
+        <div class="artist-hero-left">
+            <div class="artist-profile-avatar">
+                <img id="artistAvatar" src="" alt="Аватар митця">
+            </div>
+        </div>
+
+        <div class="artist-hero-right">
+            <div class="artist-badges">
+                <span class="artist-badge" id="artistGenre">Жанр</span>
+                <span class="artist-badge artist-badge-muted" id="artistCity">Місто</span>
+            </div>
+
+            <h1 id="artistNickname">Ім’я митця</h1>
+
+            <p class="artist-subtitle">
+                Профіль митця на платформі StreetArt Live
+            </p>
+
+            <p class="artist-about-text" id="artistAbout">
+                Опис творчості митця.
+            </p>
+
+            <div class="artist-actions">
+                <button class="artist-action-btn">Підписатися</button>
+                <button class="artist-action-btn artist-action-btn-secondary">Переглянути виступи</button>
+            </div>
+        </div>
+    </section>
+
+    <section class="artist-section-grid">
+        <section class="artist-panel">
+            <div class="section-head">
+                <h2>Про митця</h2>
+            </div>
+            <div class="artist-info-list">
+                <div class="artist-info-item">
+                    <span class="artist-info-label">Псевдонім</span>
+                    <span class="artist-info-value" id="artistNicknameInfo">—</span>
+                </div>
+                <div class="artist-info-item">
+                    <span class="artist-info-label">Жанр</span>
+                    <span class="artist-info-value" id="artistGenreInfo">—</span>
+                </div>
+                <div class="artist-info-item">
+                    <span class="artist-info-label">Місто</span>
+                    <span class="artist-info-value" id="artistCityInfo">—</span>
+                </div>
+            </div>
+        </section>
+
+        <section class="artist-panel">
+            <div class="section-head">
+                <h2>Активність</h2>
+            </div>
+            <div class="artist-stats">
+                <div class="artist-stat-card">
+                    <span class="artist-stat-value">12</span>
+                    <span class="artist-stat-label">виступів</span>
+                </div>
+                <div class="artist-stat-card">
+                    <span class="artist-stat-value">248</span>
+                    <span class="artist-stat-label">підписників</span>
+                </div>
+                <div class="artist-stat-card">
+                    <span class="artist-stat-value">36</span>
+                    <span class="artist-stat-label">вподобань</span>
+                </div>
+            </div>
+        </section>
+    </section>
+
+    <section class="artist-panel">
+        <div class="section-head">
+            <h2>Медіа</h2>
+        </div>
+
+        <div class="artist-media-grid" id="artistMediaGrid">
+            <article class="artist-media-card">
+                <img src="../assets/hero.png" alt="Медіа 1">
+            </article>
+            <article class="artist-media-card">
+                <img src="../assets/image 2.png" alt="Медіа 2">
+            </article>
+            <article class="artist-media-card">
+                <img src="../assets/artist-possibilites.png" alt="Медіа 3">
+            </article>
+        </div>
+    </section>
+
+    <section class="artist-panel">
+        <div class="section-head">
+            <h2>Найближчі виступи</h2>
+        </div>
+
+        <div class="artist-events-list" id="artistEventsList">
+            <article class="artist-event-card">
+                <div class="artist-event-top">
+                    <span class="artist-event-date">2026-04-21</span>
+                    <span class="artist-event-time">18:30</span>
+                </div>
+                <div class="artist-event-place">Суми, центральна площа</div>
+            </article>
+
+            <article class="artist-event-card">
+                <div class="artist-event-top">
+                    <span class="artist-event-date">2026-04-25</span>
+                    <span class="artist-event-time">17:00</span>
+                </div>
+                <div class="artist-event-place">Харків, парк Шевченка</div>
+            </article>
+        </div>
+    </section>
+</main>
+</body>
+</html>

@@ -55,7 +55,7 @@ function renderArtists(artists) {
         el.className = "artist-card";
 
         el.innerHTML = `
-    <div class="artist-card">
+    <div class="artist-card"><a href="artist-profile.html?id=${artist.id}">
 
         <div class="artist-top">
             <div class="artist-avatar">
@@ -75,7 +75,7 @@ function renderArtists(artists) {
         <div class="artist-about">
             ${artist.about || ""}
         </div>
-
+</a>
     </div>
 `;
 
