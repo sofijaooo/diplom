@@ -26,7 +26,7 @@
     </nav>
 </header>
 
-<main class="artist-profile-page">
+<main class="content artist-profile-page">
     <section class="artist-hero-card">
         <div class="artist-hero-left">
             <div class="artist-profile-avatar">
@@ -52,7 +52,7 @@
 
             <div class="artist-actions">
                 <button class="artist-action-btn">Підписатися</button>
-                <button class="artist-action-btn artist-action-btn-secondary">Переглянути виступи</button>
+                <button class="artist-action-btn artist-action-btn-secondary" id="viewArtistEventsBtn">Переглянути виступи</button>
             </div>
         </div>
     </section>
@@ -78,25 +78,25 @@
             </div>
         </section>
 
-        <section class="artist-panel">
-            <div class="section-head">
-                <h2>Активність</h2>
-            </div>
-            <div class="artist-stats">
-                <div class="artist-stat-card">
-                    <span class="artist-stat-value">12</span>
-                    <span class="artist-stat-label">виступів</span>
-                </div>
-                <div class="artist-stat-card">
-                    <span class="artist-stat-value">248</span>
-                    <span class="artist-stat-label">підписників</span>
-                </div>
-                <div class="artist-stat-card">
-                    <span class="artist-stat-value">36</span>
-                    <span class="artist-stat-label">вподобань</span>
-                </div>
-            </div>
-        </section>
+<!--        <section class="artist-panel">-->
+<!--            <div class="section-head">-->
+<!--                <h2>Активність</h2>-->
+<!--            </div>-->
+<!--            <div class="artist-stats">-->
+<!--                <div class="artist-stat-card">-->
+<!--                    <span class="artist-stat-value">12</span>-->
+<!--                    <span class="artist-stat-label">виступів</span>-->
+<!--                </div>-->
+<!--                <div class="artist-stat-card">-->
+<!--                    <span class="artist-stat-value">248</span>-->
+<!--                    <span class="artist-stat-label">підписників</span>-->
+<!--                </div>-->
+<!--                <div class="artist-stat-card">-->
+<!--                    <span class="artist-stat-value">36</span>-->
+<!--                    <span class="artist-stat-label">вподобань</span>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--        </section>-->
     </section>
 
     <section class="artist-panel">
@@ -121,24 +121,24 @@
         <div class="section-head">
             <h2>Найближчі виступи</h2>
         </div>
+        <div class="artist-events-list" id="artistEventsList"></div>
+<!--        <div class="artist-events-list" id="artistEventsList">-->
+<!--            <article class="artist-event-card">-->
+<!--                <div class="artist-event-top">-->
+<!--                    <span class="artist-event-date">2026-04-21</span>-->
+<!--                    <span class="artist-event-time">18:30</span>-->
+<!--                </div>-->
+<!--                <div class="artist-event-place">Суми, центральна площа</div>-->
+<!--            </article>-->
 
-        <div class="artist-events-list" id="artistEventsList">
-            <article class="artist-event-card">
-                <div class="artist-event-top">
-                    <span class="artist-event-date">2026-04-21</span>
-                    <span class="artist-event-time">18:30</span>
-                </div>
-                <div class="artist-event-place">Суми, центральна площа</div>
-            </article>
-
-            <article class="artist-event-card">
-                <div class="artist-event-top">
-                    <span class="artist-event-date">2026-04-25</span>
-                    <span class="artist-event-time">17:00</span>
-                </div>
-                <div class="artist-event-place">Харків, парк Шевченка</div>
-            </article>
-        </div>
+<!--            <article class="artist-event-card">-->
+<!--                <div class="artist-event-top">-->
+<!--                    <span class="artist-event-date">2026-04-25</span>-->
+<!--                    <span class="artist-event-time">17:00</span>-->
+<!--                </div>-->
+<!--                <div class="artist-event-place">Харків, парк Шевченка</div>-->
+<!--            </article>-->
+<!--        </div>-->
     </section>
 </main>
 </body>

@@ -33,6 +33,7 @@ async function loadArtistProfile() {
         }
 
         renderArtistProfile(artist);
+        loadArtistEvents(artist);
     } catch (error) {
         console.error("Помилка завантаження профілю митця:", error);
         document.getElementById("artistNickname").textContent = "Не вдалося завантажити профіль";
@@ -70,3 +71,90 @@ function renderArtistProfile(artist) {
 document.addEventListener("DOMContentLoaded", () => {
     loadArtistProfile();
 });
+
+document.addEventListener("DOMContentLoaded", () => {
+    loadArtistProfile();
+
+    const viewArtistEventsBtn = document.getElementById("viewArtistEventsBtn");
+
+    if (viewArtistEventsBtn) {
+        viewArtistEventsBtn.addEventListener("click", () => {
+            const profilePage = document.querySelector(".artist-profile-page");
+            const eventsSection = document.getElementById("artistEventsList");
+
+            if (profilePage && eventsSection) {
+                profilePage.scrollTo({
+                    top: eventsSection.offsetTop - 24,
+                    behavior: "smooth"
+                });
+            }
+        });
+    }
+});
+
+async function loadArtistEvents(artist) {
+    const eventsContainer = document.getElementById("artistEventsList");
+
+    if (!eventsContainer) return;
+
+    try {
+        const response = await fetch("http://localhost:8080/api/events");
+
+        if (!response.ok) {
+            throw new Error(`HTTP error: ${response.status}`);
+        }
+
+        const events = await response.json();
+
+        const now = new Date();
+
+        const artistEvents = events
+            .filter(event => String(event.userId) === String(artist.userId))
+            .filter(event => {
+                if (!event.eventDate) return false;
+
+                const eventDateTime = new Date(`${event.eventDate}T${event.time || "00:00"}`);
+                return eventDateTime >= now;
+            })
+            .sort((a, b) => {
+                const dateA = new Date(`${a.eventDate}T${a.time || "00:00"}`);
+                const dateB = new Date(`${b.eventDate}T${b.time || "00:00"}`);
+                return dateA - dateB;
+            });
+
+        renderArtistEvents(artistEvents);
+
+    } catch (error) {
+        console.error("Помилка завантаження виступів митця:", error);
+        eventsContainer.innerHTML = `<p class="artist-events-empty">Не вдалося завантажити виступи</p>`;
+    }
+}
+
+function renderArtistEvents(events) {
+    const eventsContainer = document.getElementById("artistEventsList");
+
+    eventsContainer.innerHTML = "";
+
+    if (!events || events.length === 0) {
+        eventsContainer.innerHTML = `<p class="artist-events-empty">Найближчих виступів поки немає</p>`;
+        return;
+    }
+
+    events.forEach(event => {
+        const el = document.createElement("article");
+        el.className = "artist-event-card";
+
+        el.innerHTML = `
+            <div class="artist-event-top">
+                <span class="artist-event-date">${event.eventDate || "—"}</span>
+                <span class="artist-event-time">${event.time || "—"}</span>
+            </div>
+
+            <div class="artist-event-place">
+                ${event.place || "Місце не вказано"}
+            </div>
+        `;
+
+        eventsContainer.appendChild(el);
+    });
+}

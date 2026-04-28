@@ -68,40 +68,103 @@
 
     </nav>
 </header>
-<main>
+<main class="content performers-content">
     <h1>Виконавці</h1>
-    <div>
-        <label class="control-label" for="search">Пошук</label>
-        <input
-                id="search"
-                class="control-input"
-                type="search"
-                placeholder="Пошук подій або митців"
-                autocomplete="off"
-        />
+<!--    <div class="performers-controls">-->
+<!--        <div class="performers-search">-->
+<!--            <label class="control-label" for="search">Пошук</label>-->
+<!--            <input-->
+<!--                    id="search"-->
+<!--                    class="control-input"-->
+<!--                    type="search"-->
+<!--                    placeholder="Пошук подій або митців"-->
+<!--                    autocomplete="off"-->
+<!--            />-->
+<!--        </div>-->
+
+<!--        <div class="performers-filters">-->
+<!--            <label>Фільтри</label>-->
+<!--            <select id="genreFilter">-->
+<!--                <option value="" selected disabled>Жанр</option>-->
+<!--                <option value="singer">Вокал</option>-->
+<!--                <option value="musician">Музика</option>-->
+<!--                <option value="painter">Живопис</option>-->
+<!--                <option value="performer">Перфоманси</option>-->
+<!--            </select>-->
+
+<!--            <select id="cityFilter">-->
+<!--                <option value="" selected disabled>Місто</option>-->
+<!--                <option value="Sumy">Суми</option>-->
+<!--                <option value="City">Інші</option>-->
+<!--            </select>-->
+
+<!--            <button id="filterBtn">Застосувати фільтри</button>-->
+<!--        </div>-->
+<!--    </div>-->
+    <div class="filters-center">
+        <div class="search-block">
+            <label class="control-label" for="search">Пошук</label>
+
+            <div class="control-input-shell">
+                <input
+                        id="search"
+                        class="control-input"
+                        type="search"
+                        placeholder="Пошук митців"
+                        autocomplete="off"
+                />
+            </div>
+        </div>
+
+        <div class="filters">
+<!--            <select id="genreFilter" class="performer-select">-->
+<!--                <option value="" selected disabled>Жанр</option>-->
+<!--                <option value="singer">Вокал</option>-->
+<!--                <option value="musician">Музика</option>-->
+<!--                <option value="painter">Живопис</option>-->
+<!--                <option value="performer">Перфоманси</option>-->
+<!--            </select>-->
+
+<!--            <select id="cityFilter" class="performer-select">-->
+<!--                <option value="" selected disabled>Місто</option>-->
+<!--                <option value="Sumy">Суми</option>-->
+<!--                <option value="City">Інші</option>-->
+<!--            </select>-->
+            <div class="picker">
+                <button type="button" class="chip" id="genrePickerBtn">Жанр</button>
+
+                <div class="popover is-hidden" id="genrePopover">
+                    <div class="performer-panel">
+                        <button type="button" class="performer-option" data-value="">Усі жанри</button>
+                        <button type="button" class="performer-option" data-value="singer">Вокал</button>
+                        <button type="button" class="performer-option" data-value="musician">Музика</button>
+                        <button type="button" class="performer-option" data-value="painter">Живопис</button>
+                        <button type="button" class="performer-option" data-value="performer">Перфоманси</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="picker">
+                <button type="button" class="chip" id="cityPickerBtn">Місто</button>
+
+                <div class="popover is-hidden" id="cityPopover">
+                    <div class="performer-panel">
+                        <button type="button" class="performer-option" data-value="">Усі міста</button>
+                        <button type="button" class="performer-option" data-value="Sumy">Суми</button>
+                        <button type="button" class="performer-option" data-value="City">Інші</button>
+                    </div>
+                </div>
+            </div>
+
+            <button id="filterBtn">Застосувати фільтри</button>
+        </div>
     </div>
-    <div>
-        <label>Фільтри</label>
-        <select id="genreFilter">
-            <option value="" selected disabled>Жанр</option>
-            <option value="singer">Вокал</option>
-            <option value="musician">Музика</option>
-            <option value="painter">Живопис</option>
-            <option value="performer">Перфоманси</option>
-        </select>
 
-        <select id="cityFilter">
-            <option value="" selected disabled>Місто</option>
-            <option value="Sumy">Суми</option>
-            <option value="City">Інші</option>
-        </select>
+    <div id="artistsList"></div>
 
-        <button id="filterBtn">Застосувати фільтри</button>
-
-        <div id="artistsList"></div>
-
-    <h2>Приєднуйтесь до StreetArt Live та відкрийте світ мистецтва</h2>
-    <button>Стати митцем</button>
+    <div class="performers-cta">
+        <h2>Приєднуйтесь до StreetArt Live та відкрийте світ мистецтва</h2>
+        <button>Стати митцем</button>
     </div>
 </main>
 </body>
