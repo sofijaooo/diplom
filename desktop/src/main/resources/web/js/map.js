@@ -1,3 +1,7 @@
+if (!protectPage()) {
+    throw new Error("Access denied");
+}
+
 const toggle = document.getElementById("mapThemeToggle");
 const frame = document.getElementById("mapFrame");
 

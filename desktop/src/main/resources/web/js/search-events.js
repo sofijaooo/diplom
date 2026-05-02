@@ -79,6 +79,10 @@
 // document.addEventListener("DOMContentLoaded", () => {
 //     loadEvents();
 // });
+if (!protectPage()) {
+    throw new Error("Access denied");
+}
+
 const searchField = document.getElementById("search");
 const filterButton = document.getElementById("filterBtn");
 const eventsContainer = document.getElementById("eventsList");

@@ -1,0 +1,100 @@
+.auth-page {
+    align-items: center;
+    justify-content: center;
+    text-align: left;
+}
+
+.auth-card,
+.access-card {
+    width: 100%;
+    max-width: 520px;
+    padding: 28px;
+    border-radius: 24px;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    box-shadow: 0 10px 30px rgba(0,0,0,0.28);
+}
+
+.auth-card h1,
+.access-card h2 {
+    margin: 0 0 14px;
+    color: #ffffff;
+}
+
+.auth-card p,
+.access-card p {
+    margin: 0 0 22px;
+    color: #c9cdd4;
+    line-height: 1.5;
+}
+
+.auth-card form {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+}
+
+.auth-card input,
+.auth-card select,
+.auth-card textarea {
+    width: 100%;
+    min-height: 46px;
+    padding: 12px 14px;
+    border-radius: 14px;
+    border: 1px solid rgba(255,255,255,0.10);
+    background: #1b1f2a;
+    color: #ffffff;
+    font: inherit;
+    outline: none;
+    box-sizing: border-box;
+}
+
+.auth-card textarea {
+    min-height: 90px;
+    resize: vertical;
+}
+
+.auth-card input::placeholder,
+.auth-card textarea::placeholder {
+    color: #9ea3ad;
+}
+
+.role-choice {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    color: #f3f3f3;
+    font-size: 14px;
+}
+
+.role-choice input {
+    width: auto;
+    min-height: auto;
+}
+
+.artist-fields {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+}
+
+.is-hidden {
+    display: none !important;
+}
+
+.access-card {
+    margin: auto;
+    text-align: center;
+}
+
+.access-actions {
+    display: flex;
+    justify-content: center;
+    gap: 12px;
+    flex-wrap: wrap;
+}
+
+.access-secondary {
+    background: rgba(255,255,255,0.10);
+    border: 1px solid rgba(255,255,255,0.08);
+}
