@@ -1,7 +1,9 @@
 .auth-page {
     align-items: center;
-    justify-content: center;
+    justify-content: flex-start;
     text-align: left;
+    padding-top: 40px;
+    padding-bottom: 80px;
 }
 
 .auth-card,
@@ -97,4 +99,8 @@
 .access-secondary {
     background: rgba(255,255,255,0.10);
     border: 1px solid rgba(255,255,255,0.08);
+}
+
+.auth-error{
+    color: #FF1D00 !important;
 }

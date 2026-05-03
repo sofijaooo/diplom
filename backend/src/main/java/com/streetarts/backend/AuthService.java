@@ -7,6 +7,9 @@ import com.streetarts.backend.dto.RegisterRequest;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+
 @Service
 public class AuthService {
 
@@ -29,6 +32,13 @@ public class AuthService {
         UserRole role = "artist".equals(request.role) ? UserRole.artist : UserRole.user;
 
         User user = new User();
+        user.setName(request.name.trim());
+        user.setSurname(request.surname.trim());
+        if (request.birthDate != null && !request.birthDate.isBlank()) {
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd.MM.yyyy");
+            user.setBirthDate(LocalDate.parse(request.birthDate, formatter));
+        }
+        user.setPhone(request.phone.trim());
         user.setUsername(request.username.trim());
         user.setEmail(request.email.trim().toLowerCase());
         user.setPasswordHash(passwordEncoder.encode(request.password));
@@ -42,8 +52,12 @@ public class AuthService {
             artist.setNickname(request.artistNickname.trim());
             artist.setGenre(GenreRole.valueOf(request.artistGenre));
             artist.setCity(request.artistCity.trim());
-            artist.setAbout(request.artistAbout.trim());
-            artist.setAvatar_url("");
+            if (request.artistAbout != null && !request.artistAbout.isBlank()) {
+                artist.setAbout(request.artistAbout.trim());
+            } else {
+                artist.setAbout(null);
+            }
+            artist.setAvatar_url(null);
 
             artistRepository.save(artist);
         }
@@ -75,8 +89,38 @@ public class AuthService {
     }
 
     private void validateRegister(RegisterRequest request) {
+
+        if (request.name == null || !request.name.trim().matches("^[A-Za-zА-Яа-яІіЇїЄє'\\- ]{2,}$")) {
+            throw new RuntimeException("Ім’я має містити лише літери (мінімум 2 символи)");
+        }
+
+        if (request.surname == null || !request.surname.trim().matches("^[A-Za-zА-Яа-яІіЇїЄє'\\- ]{2,}$")) {
+            throw new RuntimeException("Прізвище має містити лише літери (мінімум 2 символи)");
+        }
+
+        if (request.phone == null || !request.phone.trim().matches("^\\+\\d{10,15}$")) {
+            throw new RuntimeException("Телефон має починатися з + та містити 10–15 цифр");
+        }
+
+        try {
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd.MM.yyyy");
+            LocalDate birthDate = LocalDate.parse(request.birthDate, formatter);
+
+            if (birthDate.isAfter(LocalDate.now())) {
+                throw new RuntimeException("Дата народження не може бути в майбутньому");
+            }
+
+            if (birthDate.isAfter(LocalDate.now().minusYears(10))) {
+                throw new RuntimeException("Мінімальний вік — 10 років");
+            }
+
+        } catch (Exception e) {
+            throw new RuntimeException("Дата народження має бути у форматі 31.01.2000");
+        }
+
         if (request.username == null || request.username.trim().length() < 2) {
-            throw new RuntimeException("Ім’я має містити мінімум 2 символи");
+
+            throw new RuntimeException("Нікнейм має містити мінімум 2 символи");
         }
 
         if (request.email == null || !request.email.matches("^[\\w.-]+@[\\w.-]+\\.[A-Za-z]{2,}$")) {
@@ -88,20 +132,22 @@ public class AuthService {
         }
 
         if ("artist".equals(request.role)) {
-            if (request.artistNickname == null || request.artistNickname.isBlank()) {
-                throw new RuntimeException("Введіть псевдонім митця");
+            if (request.artistNickname == null || request.artistNickname.trim().length() < 2) {
+                throw new RuntimeException("Псевдонім митця має містити мінімум 2 символи");
             }
 
             if (request.artistGenre == null || request.artistGenre.isBlank()) {
                 throw new RuntimeException("Оберіть жанр");
             }
 
-            if (request.artistCity == null || request.artistCity.isBlank()) {
-                throw new RuntimeException("Введіть місто");
+            if (request.artistCity == null ||
+                    !request.artistCity.trim().matches("^[A-Za-zА-Яа-яІіЇїЄє'\\- ]{2,}$")) {
+                throw new RuntimeException("Місто має містити лише літери (мінімум 2 символи)");
             }
 
-            if (request.artistAbout == null || request.artistAbout.isBlank()) {
-                throw new RuntimeException("Додайте короткий опис творчості");
+// description НЕ обов’язковий
+            if (request.artistAbout != null && request.artistAbout.length() > 500) {
+                throw new RuntimeException("Опис не може перевищувати 500 символів");
             }
         }
     }

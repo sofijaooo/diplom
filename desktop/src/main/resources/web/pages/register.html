@@ -38,10 +38,52 @@
         <h1>Реєстрація</h1>
         <p>Створіть акаунт, щоб переглядати виступи, мапу та профілі митців.</p>
 
-        <form id="registerForm">
-            <input id="username" type="text" placeholder="Ім’я користувача" required>
-            <input id="email" type="email" placeholder="Email" required>
-            <input id="password" type="password" placeholder="Пароль" required>
+<!--        <form id="registerForm">-->
+<!--            <input id="username" type="text" placeholder="Ім’я користувача" required>-->
+<!--            <input id="email" type="email" placeholder="Email" required>-->
+<!--            <input id="password" type="password" placeholder="Пароль" required>-->
+
+<!--            <label class="role-choice">-->
+<!--                <input id="isArtist" type="checkbox">-->
+<!--                Зареєструватися як митець-->
+<!--            </label>-->
+
+<!--            <div id="artistFields" class="artist-fields is-hidden">-->
+<!--                <input id="artistNickname" type="text" placeholder="Псевдонім митця">-->
+<!--                <select id="artistGenre">-->
+<!--                    <option value="">Жанр</option>-->
+<!--                    <option value="singer">Вокал</option>-->
+<!--                    <option value="musician">Музика</option>-->
+<!--                    <option value="painter">Живопис</option>-->
+<!--                    <option value="performer">Перформанс</option>-->
+<!--                </select>-->
+<!--                <input id="artistCity" type="text" placeholder="Місто">-->
+<!--                <textarea id="artistAbout" placeholder="Короткий опис творчості"></textarea>-->
+<!--            </div>-->
+
+<!--            <button type="submit">Зареєструватися</button>-->
+<!--        </form>-->
+
+        <form id="registerForm" novalidate>
+            <input id="name" type="text" placeholder="Ім’я">
+
+            <input id="surname" type="text" placeholder="Прізвище">
+
+
+            <input id="birthDate" type="text" placeholder="Дата народження: 31.01.2000">
+
+
+            <input id="phone" type="tel" placeholder="Телефон у форматі +111111111111">
+
+
+            <input id="username" type="text" placeholder="Нікнейм">
+
+
+            <input id="email" type="email" placeholder="Email">
+
+
+            <input id="password" type="password" placeholder="Пароль">
+
 
             <label class="role-choice">
                 <input id="isArtist" type="checkbox">
@@ -50,6 +92,7 @@
 
             <div id="artistFields" class="artist-fields is-hidden">
                 <input id="artistNickname" type="text" placeholder="Псевдонім митця">
+
                 <select id="artistGenre">
                     <option value="">Жанр</option>
                     <option value="singer">Вокал</option>
@@ -57,11 +100,18 @@
                     <option value="painter">Живопис</option>
                     <option value="performer">Перформанс</option>
                 </select>
+
                 <input id="artistCity" type="text" placeholder="Місто">
+
                 <textarea id="artistAbout" placeholder="Короткий опис творчості"></textarea>
             </div>
 
             <button type="submit">Зареєструватися</button>
+
+            <p class="auth-switch">
+                Вже маєте акаунт?
+                <a href="login.html">Увійти</a>
+            </p>
         </form>
     </section>
 </main>

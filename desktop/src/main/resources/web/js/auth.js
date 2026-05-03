@@ -113,17 +113,27 @@ document.addEventListener("DOMContentLoaded", () => {
             const role = isArtist.checked ? "artist" : "user";
 
             const data = {
+                name: document.getElementById("name").value.trim(),
+                surname: document.getElementById("surname").value.trim(),
+                birthDate: document.getElementById("birthDate").value,
+                phone: document.getElementById("phone").value.trim(),
+
                 username: document.getElementById("username").value.trim(),
                 email: document.getElementById("email").value.trim(),
                 password: document.getElementById("password").value,
-                role: role,
+                role: role
 
-                artistNickname: document.getElementById("artistNickname")?.value.trim(),
-                artistGenre: document.getElementById("artistGenre")?.value,
-                artistCity: document.getElementById("artistCity")?.value.trim(),
-                artistAbout: document.getElementById("artistAbout")?.value.trim()
+                // artistNickname: document.getElementById("artistNickname")?.value.trim(),
+                // artistGenre: document.getElementById("artistGenre")?.value,
+                // artistCity: document.getElementById("artistCity")?.value.trim(),
+                // artistAbout: document.getElementById("artistAbout")?.value.trim()
             };
-
+            if (role === "artist") {
+                data.artistNickname = document.getElementById("artistNickname").value.trim();
+                data.artistGenre = document.getElementById("artistGenre").value;
+                data.artistCity = document.getElementById("artistCity").value.trim();
+                data.artistAbout = document.getElementById("artistAbout").value.trim();
+            }
             try {
                 const response = await fetch("http://localhost:8080/api/auth/register", {
                     method: "POST",

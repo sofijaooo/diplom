@@ -17,7 +17,7 @@ public class Artists {
     @Column(name = "nickname", nullable = false, length = 50)
     private String nickname;
 
-    @Column(name = "about", nullable = false, length = 100)
+    @Column(name = "about", nullable = true, length = 100)
     private String about;
 
     @Enumerated(EnumType.STRING)
@@ -27,7 +27,7 @@ public class Artists {
     @Column(name = "city", nullable = false, length = 50)
     private String city;
 
-    @Column(name = "avatar_url", nullable = false, length = 255)
+    @Column(name = "avatar_url", nullable = true, length = 255)
     private String avatar_url;
 
     public Long getId() {
