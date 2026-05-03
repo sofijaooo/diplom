@@ -1,14 +1,53 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <title>Вхід</title>
 
-<form id="loginForm">
-    <input id="loginEmail" type="email" placeholder="Email" required>
-    <input id="loginPassword" type="password" placeholder="Пароль" required>
+    <link rel="stylesheet" href="../css/app.css">
+    <link rel="stylesheet" href="../css/auth.css">
 
-    <select id="loginRole">
-        <option value="user">Користувач / Митець</option>
-        <option value="admin">Адміністратор</option>
-    </select>
+    <link href="https://fonts.googleapis.com/css2?family=Stalinist+One&family=Unbounded:wght@200..900&display=swap" rel="stylesheet">
 
-    <button type="submit">Увійти</button>
-</form>
+    <script src="../js/auth.js" defer></script>
+</head>
+<body>
+<header class="topbar">
+    <h1 class="logo">StreetArt Live</h1>
 
+    <nav class="navbar">
+        <div>
+            <a href="../index.html">Головна</a>
+        </div>
 
+        <div>
+            <a href="about-us.html">Про платформу</a>
+        </div>
+    </nav>
+</header>
+
+<main class="content auth-page">
+    <section class="auth-card">
+        <h1>Вхід</h1>
+        <p>Увійдіть в акаунт, щоб користуватися можливостями платформи.</p>
+
+        <form id="loginForm" novalidate>
+            <input id="loginEmail" type="email" placeholder="Email">
+            <input id="loginPassword" type="password" placeholder="Пароль">
+
+<!--            <select id="loginRole">-->
+<!--                <option value="user">Користувач</option>-->
+<!--                <option value="artist">Митець</option>-->
+<!--            </select>-->
+
+            <button type="submit">Увійти</button>
+
+            <p class="auth-switch">
+                Ще не маєте акаунта?
+                <a href="register.html">Зареєструватися</a>
+            </p>
+        </form>
+    </section>
+</main>
+</body>
+</html>

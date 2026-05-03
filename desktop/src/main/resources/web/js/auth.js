@@ -26,7 +26,33 @@ function logout() {
     window.location.href = "../index.html";
 }
 
-function renderAccessBlock(pageTitle = "Цей розділ доступний після реєстрації") {
+// function renderAccessBlock(pageTitle = "Цей розділ доступний після реєстрації") {
+//     const main = document.querySelector("main");
+//
+//     if (!main) return;
+//
+//     main.innerHTML = `
+//         <section class="access-card">
+//             <h2>${pageTitle}</h2>
+//             <p>
+//                 Зареєструйтеся або увійдіть, щоб переглядати мапу виступів,
+//                 список подій, профілі митців та користуватися можливостями платформи.
+//             </p>
+//
+//             <div class="access-actions">
+//                 <button onclick="window.location.href='register.html'">
+//                     Зареєструватися
+//                 </button>
+//
+//                 <button class="access-secondary" onclick="window.location.href='../index.html'">
+//                     На головну
+//                 </button>
+//             </div>
+//         </section>
+//     `;
+// }
+
+function renderAccessBlock(pageTitle = "Цей розділ доступний після входу в акаунт") {
     const main = document.querySelector("main");
 
     if (!main) return;
@@ -35,17 +61,17 @@ function renderAccessBlock(pageTitle = "Цей розділ доступний �
         <section class="access-card">
             <h2>${pageTitle}</h2>
             <p>
-                Зареєструйтеся або увійдіть, щоб переглядати мапу виступів,
+                Увійдіть або зареєструйтеся, щоб переглядати мапу виступів,
                 список подій, профілі митців та користуватися можливостями платформи.
             </p>
 
             <div class="access-actions">
-                <button onclick="window.location.href='register.html'">
-                    Зареєструватися
+                <button onclick="window.location.href='login.html'">
+                    Увійти
                 </button>
 
-                <button class="access-secondary" onclick="window.location.href='../index.html'">
-                    На головну
+                <button class="access-secondary" onclick="window.location.href='register.html'">
+                    Зареєструватися
                 </button>
             </div>
         </section>
@@ -180,23 +206,29 @@ if (loginForm) {
         const data = {
             email: document.getElementById("loginEmail").value.trim(),
             password: document.getElementById("loginPassword").value,
-            role: document.getElementById("loginRole").value
+            // role: document.getElementById("loginRole").value
         };
 
-        const response = await fetch("http://localhost:8080/api/auth/login", {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify(data)
-        });
+        try {
+            const response = await fetch("http://localhost:8080/api/auth/login", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify(data)
+            });
 
-        const result = await response.json();
+            const result = await response.json();
 
-        if (!response.ok) {
-            showAuthError(result.message || "Помилка входу");
-            return;
+            if (!response.ok) {
+                showAuthError(result.message || "Помилка входу");
+                return;
+            }
+
+            setCurrentUser(result);
+            window.location.href = "../index.html";
+
+        } catch (error) {
+            showAuthError("Сервер недоступний");
         }
-
-        setCurrentUser(result);
-        window.location.href = "../index.html";
     });
 }
+

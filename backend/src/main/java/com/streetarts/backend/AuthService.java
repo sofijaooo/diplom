@@ -81,10 +81,6 @@ public class AuthService {
             throw new RuntimeException("Невірний пароль");
         }
 
-        if ("admin".equals(request.role) && user.getRole() != UserRole.admin) {
-            throw new RuntimeException("Ця пошта не прив’язана до адміністратора");
-        }
-
         return new AuthResponse(user);
     }
 
