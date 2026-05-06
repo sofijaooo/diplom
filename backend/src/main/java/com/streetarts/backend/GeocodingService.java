@@ -6,6 +6,7 @@ import org.springframework.web.client.RestTemplate;
 
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -14,40 +15,183 @@ public class GeocodingService {
     private final RestTemplate restTemplate = new RestTemplate();
 
     public Coordinates geocode(String address) {
-        List<String> variants = List.of(
-                address,
-                normalizeUkrainianAddress(address),
-                transliterateAddress(normalizeUkrainianAddress(address)),
-                transliterateAddress(address)
-        );
+        String[] parts = address.split(",");
+
+        if (parts.length >= 3) {
+            String city = normalizeCity(parts[0].trim());
+            String street = normalizeStreet(parts[1].trim());
+            String house = parts[2].trim();
+
+            Coordinates structuredFull = geocodeStructured(city, street, house);
+            if (structuredFull != null) return structuredFull;
+
+            Coordinates structuredStreet = geocodeStructured(city, street, "");
+            if (structuredStreet != null) return structuredStreet;
+        }
+
+        List<String> variants = buildAddressVariants(address);
 
         for (String variant : variants) {
             Coordinates coordinates = geocodeSingle(variant);
-
-            if (coordinates != null) {
-                return coordinates;
-            }
+            if (coordinates != null) return coordinates;
         }
 
         return null;
     }
 
-    private String normalizeUkrainianAddress(String address) {
-        return address
-                .replace("вул.", "вулиця")
-                .replace("вул ", "вулиця ")
-                .replace("ул.", "вулиця")
-                .replace("ул ", "вулиця ")
-                .replace("Київ", "Kyiv")
+    private List<String> buildAddressVariants(String address) {
+        String[] parts = address.split(",");
+
+        String city = parts.length > 0 ? parts[0].trim() : "";
+        String street = parts.length > 1 ? parts[1].trim() : "";
+        String house = parts.length > 2 ? parts[2].trim() : "";
+
+        String normalizedCity = normalizeCity(city);
+        String normalizedStreet = normalizeStreet(street);
+
+        List<String> variants = new ArrayList<>();
+
+        variants.add(address);
+
+        if (!house.isBlank() && !normalizedStreet.isBlank() && !normalizedCity.isBlank()) {
+            variants.add(normalizedStreet + " " + house + ", " + normalizedCity + ", Ukraine");
+        }
+
+        if (!normalizedStreet.isBlank() && !normalizedCity.isBlank()) {
+            variants.add(normalizedStreet + ", " + normalizedCity + ", Ukraine");
+        }
+
+        if (!normalizedCity.isBlank()) {
+            variants.add(normalizedCity + ", Ukraine");
+        }
+
+        return variants;
+    }
+
+    private Coordinates geocodeStructured(String city, String street, String house) {
+        try {
+            String streetValue = house == null || house.isBlank()
+                    ? street
+                    : street + " " + house;
+
+            String streetParam = URLEncoder.encode(streetValue, StandardCharsets.UTF_8);
+            String cityParam = URLEncoder.encode(city, StandardCharsets.UTF_8);
+
+            String url = "https://nominatim.openstreetmap.org/search"
+                    + "?street=" + streetParam
+                    + "&city=" + cityParam
+                    + "&country=Ukraine"
+                    + "&format=json"
+                    + "&limit=1"
+                    + "&accept-language=uk,en";
+
+            HttpHeaders headers = new HttpHeaders();
+            headers.set("User-Agent", "StreetArtLive/1.0 student-project");
+
+            HttpEntity<String> entity = new HttpEntity<>(headers);
+
+            ResponseEntity<NominatimResult[]> response = restTemplate.exchange(
+                    url,
+                    HttpMethod.GET,
+                    entity,
+                    NominatimResult[].class
+            );
+
+            NominatimResult[] results = response.getBody();
+
+            System.out.println("GEOCODING STRUCTURED: " + streetValue + ", " + city);
+
+            if (results == null || results.length == 0) {
+                System.out.println("GEOCODING STRUCTURED RESPONSE: empty");
+                return null;
+            }
+
+            double latitude = Double.parseDouble(results[0].lat);
+            double longitude = Double.parseDouble(results[0].lon);
+
+            System.out.println("GEOCODING LAT: " + latitude);
+            System.out.println("GEOCODING LON: " + longitude);
+
+            return new Coordinates(latitude, longitude);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    private Coordinates geocodeSingle(String address) {
+        try {
+            String encodedAddress = URLEncoder.encode(address, StandardCharsets.UTF_8);
+
+            String url = "https://nominatim.openstreetmap.org/search"
+                    + "?q=" + encodedAddress
+                    + "&format=json"
+                    + "&limit=1"
+                    + "&countrycodes=ua"
+                    + "&accept-language=uk,en";
+
+            HttpHeaders headers = new HttpHeaders();
+            headers.set("User-Agent", "StreetArtLive/1.0 student-project");
+
+            HttpEntity<String> entity = new HttpEntity<>(headers);
+
+            ResponseEntity<NominatimResult[]> response = restTemplate.exchange(
+                    url,
+                    HttpMethod.GET,
+                    entity,
+                    NominatimResult[].class
+            );
+
+            NominatimResult[] results = response.getBody();
+
+            System.out.println("GEOCODING TRY: " + address);
+
+            if (results == null || results.length == 0) {
+                System.out.println("GEOCODING RESPONSE: empty");
+                return null;
+            }
+
+            double latitude = Double.parseDouble(results[0].lat);
+            double longitude = Double.parseDouble(results[0].lon);
+
+            System.out.println("GEOCODING LAT: " + latitude);
+            System.out.println("GEOCODING LON: " + longitude);
+
+            return new Coordinates(latitude, longitude);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    private String normalizeCity(String city) {
+        return city
                 .replace("Суми", "Sumy")
-                .replace("Хрещатик", "Khreshchatyk")
-                .replace("Соборна", "Soborna")
-                .replace("вулиця", "Street")
+                .replace("Київ", "Kyiv")
+                .replace("Львів", "Lviv")
+                .replace("Харків", "Kharkiv")
+                .replace("Одеса", "Odesa")
+                .replace("Дніпро", "Dnipro")
                 .trim();
     }
 
-    private String transliterateAddress(String address) {
-        return address
+    private String normalizeStreet(String street) {
+        String cleaned = street
+                .replace("вулиця", "")
+                .replace("вул.", "")
+                .replace("вул", "")
+                .replace("проспект", "")
+                .replace("площа", "")
+                .trim();
+
+        String transliterated = transliterate(cleaned);
+
+        return transliterated + " Street";
+    }
+    private String transliterate(String text) {
+        return text
                 .replace("А", "A").replace("а", "a")
                 .replace("Б", "B").replace("б", "b")
                 .replace("В", "V").replace("в", "v")
@@ -85,116 +229,6 @@ public class GeocodingService {
                 .replace("'", "");
     }
 
-//    public Coordinates geocode(String address) {
-//        List<String> variants = List.of(
-//                address,
-//                address + ", Україна",
-//                address.replace("вул.", "вулиця"),
-//                address.replace("ул.", "вулиця"),
-//                "Ukraine, " + address
-//        );
-//
-//        for (String variant : variants) {
-//            Coordinates coordinates = geocodeSingle(variant);
-//
-//            if (coordinates != null) {
-//                return coordinates;
-//            }
-//        }
-//
-//        return null;
-//    }
-
-    private Coordinates geocodeSingle(String address) {
-        try {
-            String encodedAddress = URLEncoder.encode(address, StandardCharsets.UTF_8);
-
-            String url = "https://nominatim.openstreetmap.org/search"
-                    + "?q=" + encodedAddress
-                    + "&format=json"
-                    + "&limit=1"
-                    + "&countrycodes=ua"
-                    + "&accept-language=uk";
-
-            HttpHeaders headers = new HttpHeaders();
-            headers.set("User-Agent", "StreetArtLive/1.0 student-project");
-
-            HttpEntity<String> entity = new HttpEntity<>(headers);
-
-            ResponseEntity<NominatimResult[]> response = restTemplate.exchange(
-                    url,
-                    HttpMethod.GET,
-                    entity,
-                    NominatimResult[].class
-            );
-
-            NominatimResult[] results = response.getBody();
-
-            System.out.println("GEOCODING TRY: " + address);
-
-            if (results == null || results.length == 0) {
-                System.out.println("GEOCODING RESPONSE: empty");
-                return null;
-            }
-
-            double latitude = Double.parseDouble(results[0].lat);
-            double longitude = Double.parseDouble(results[0].lon);
-
-            System.out.println("GEOCODING LAT: " + latitude);
-            System.out.println("GEOCODING LON: " + longitude);
-
-            return new Coordinates(latitude, longitude);
-
-        } catch (Exception e) {
-            e.printStackTrace();
-            return null;
-        }
-    }
-
-//    public Coordinates geocode(String address) {
-//        try {
-//            String encodedAddress = URLEncoder.encode(address, StandardCharsets.UTF_8);
-//
-//            String url = "https://nominatim.openstreetmap.org/search"
-//                    + "?q=" + encodedAddress
-//                    + "&format=json"
-//                    + "&limit=1";
-//
-//            HttpHeaders headers = new HttpHeaders();
-//            headers.set("User-Agent", "StreetArtLive/1.0");
-//
-//            HttpEntity<String> entity = new HttpEntity<>(headers);
-//
-//            ResponseEntity<NominatimResult[]> response = restTemplate.exchange(
-//                    url,
-//                    HttpMethod.GET,
-//                    entity,
-//                    NominatimResult[].class
-//            );
-//
-//            NominatimResult[] results = response.getBody();
-//
-//            System.out.println("GEOCODING ADDRESS: " + address);
-//
-//            if (results == null || results.length == 0) {
-//                System.out.println("GEOCODING RESPONSE: empty");
-//                return null;
-//            }
-//
-//            System.out.println("GEOCODING LAT: " + results[0].lat);
-//            System.out.println("GEOCODING LON: " + results[0].lon);
-//
-//            double latitude = Double.parseDouble(results[0].lat);
-//            double longitude = Double.parseDouble(results[0].lon);
-//
-//            return new Coordinates(latitude, longitude);
-//
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//            return null;
-//        }
-//    }
-
     public static class NominatimResult {
         public String lat;
         public String lon;
@@ -218,91 +252,3 @@ public class GeocodingService {
         }
     }
 }
-//public class GeocodingService {
-//
-//    private final RestTemplate restTemplate = new RestTemplate();
-//
-//    public Coordinates geocode(String address) {
-//        try {
-//            String encodedAddress = URLEncoder.encode(address, StandardCharsets.UTF_8);
-//
-//            String url = "https://nominatim.openstreetmap.org/search" +
-//                    "?format=json" +
-//                    "&limit=1" +
-//                    "&q=" + encodedAddress;
-//
-////            String url = "https://nominatim.openstreetmap.org/search" +
-////                    "?format=json" +
-////                    "&limit=1" +
-////                    "&countrycodes=ua" +
-////                    "&accept-language=uk" +
-////                    "&q=" + encodedAddress;
-//
-//            HttpHeaders headers = new HttpHeaders();
-//            headers.set("User-Agent", "DiplomaProject/1.0 (student project)");
-//
-//            HttpEntity<String> entity = new HttpEntity<>(headers);
-//
-//            ResponseEntity<NominatimResult[]> response = restTemplate.exchange(
-//                    url,
-//                    HttpMethod.GET,
-//                    entity,
-//                    NominatimResult[].class
-//            );
-//            System.out.println("GEOCODING ADDRESS: " + address);
-//            System.out.println("GEOCODING RESPONSE: " + response.getBody());
-//            NominatimResult[] results = response.getBody();
-//
-//            if (results != null && results.length > 0) {
-//                double lat = Double.parseDouble(results[0].getLat());
-//                double lon = Double.parseDouble(results[0].getLon());
-//                return new Coordinates(lat, lon);
-//            }
-//
-//            return null;
-//
-//        } catch (Exception e) {
-//            System.out.println("Geocoding error: " + e.getMessage());
-//            return null;
-//        }
-//    }
-//
-//    public static class Coordinates {
-//        private final double latitude;
-//        private final double longitude;
-//
-//        public Coordinates(double latitude, double longitude) {
-//            this.latitude = latitude;
-//            this.longitude = longitude;
-//        }
-//
-//        public double getLatitude() {
-//            return latitude;
-//        }
-//
-//        public double getLongitude() {
-//            return longitude;
-//        }
-//    }
-//
-//    public static class NominatimResult {
-//        private String lat;
-//        private String lon;
-//
-//        public String getLat() {
-//            return lat;
-//        }
-//
-//        public void setLat(String lat) {
-//            this.lat = lat;
-//        }
-//
-//        public String getLon() {
-//            return lon;
-//        }
-//
-//        public void setLon(String lon) {
-//            this.lon = lon;
-//        }
-//    }
-//}

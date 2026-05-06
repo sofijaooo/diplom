@@ -7,6 +7,7 @@
     <link rel="stylesheet" href="../css/app.css">
     <link rel="stylesheet" href="../css/auth.css">
     <link rel="stylesheet" href="../css/account.css">
+    <link rel="stylesheet" href="../css/event-request.css">
 
     <link href="https://fonts.googleapis.com/css2?family=Stalinist+One&family=Unbounded:wght@200..900&display=swap" rel="stylesheet">
 
@@ -74,24 +75,58 @@
 
     </nav>
 </header>
-<main class="page-content">
+<main class="content event-request-content">
     <section class="event-request-page">
-        <h1>Заявка на проведення події</h1>
-        <p>
-            Заповніть інформацію про майбутню подію. Після надсилання заявка буде передана адміністратору на перевірку.
-        </p>
+        <div class="event-request-card">
+            <p class="event-request-label">Заявка митця</p>
 
-        <form id="eventRequestForm" class="event-request-form">
-            <input id="eventPlace" type="text" placeholder="Адреса проведення" required>
-<!--            <input id="eventDate" type="date" required>-->
-<!--            <input id="eventTime" type="time" required>-->
-            <input id="eventDate" type="text" placeholder="дд.мм.рррр" required>
-            <input id="eventTime" type="text" placeholder="гг:хх" required>
+            <h1>Заявка на проведення події</h1>
 
-            <textarea id="eventComments" placeholder="Коментар або опис події"></textarea>
+            <p class="event-request-text">
+                Заповніть дані про майбутній виступ. Адреса буде автоматично
+                перетворена в координати, а після перевірки адміністратором
+                подія з’явиться на мапі.
+            </p>
 
-            <button type="submit">Надіслати заявку</button>
-        </form>
+            <form id="eventRequestForm" class="event-request-form">
+
+                <div class="event-form-grid">
+                    <div class="event-form-field">
+                        <label for="eventCity">Місто</label>
+                        <input id="eventCity" type="text" placeholder="Суми" required>
+                    </div>
+
+                    <div class="event-form-field">
+                        <label for="eventStreet">Вулиця / проспект / площа</label>
+                        <input id="eventStreet" type="text" placeholder="вулиця Соборна" required>
+                    </div>
+
+                    <div class="event-form-field">
+                        <label for="eventHouse">Номер будинку</label>
+                        <input id="eventHouse" type="text" placeholder="25" required>
+                    </div>
+
+                    <div class="event-form-field">
+                        <label for="eventDate">Дата події</label>
+                        <input id="eventDate" type="text" placeholder="дд.мм.рррр" required>
+                    </div>
+
+                    <div class="event-form-field">
+                        <label for="eventTime">Час події</label>
+                        <input id="eventTime" type="text" placeholder="18:30" required>
+                    </div>
+                </div>
+
+                <div class="event-form-field">
+                    <label for="eventComments">Коментар</label>
+                    <textarea id="eventComments" placeholder="Коротко опишіть подію або додайте деталі для адміністратора"></textarea>
+                </div>
+
+                <button type="submit" class="event-request-button">
+                    Надіслати заявку
+                </button>
+            </form>
+        </div>
     </section>
 </main>
 
