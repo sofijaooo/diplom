@@ -207,3 +207,10 @@ body {
     padding: 60px;
     box-sizing: border-box;
 }
+.artist-only {
+    display: none !important;
+}
+
+body.is-artist .artist-only {
+    display: flex !important;
+}

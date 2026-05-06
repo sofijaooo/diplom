@@ -17,4 +17,7 @@ public interface EventRepository extends JpaRepository<Event, Long> {
 
     // поиск по дате события
     List<Event> findByEventDate(LocalDate eventDate);
+
+    // поиск по статусу
+    List<Event> findByStatus(String status);
 }

@@ -30,8 +30,8 @@ public class Event {
     @Column(name = "comments", length = 255)
     private String comments;       // комментарии
 
-    @Column(name = "decision")
-    private Boolean decision;      // решение (true/false/null)
+    @Column(name = "status", nullable = false, length = 20)
+    private String status = "pending";
 
     private Double latitude;
 
@@ -95,12 +95,12 @@ public class Event {
         this.comments = comments;
     }
 
-    public Boolean getDecision() {
-        return decision;
+    public String getStatus() {
+        return status;
     }
 
-    public void setDecision(Boolean decision) {
-        this.decision = decision;
+    public void setStatus(String status) {
+        this.status = status;
     }
 
     public Double getLatitude() {

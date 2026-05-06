@@ -57,4 +57,21 @@ public List<EventListDto> searchEvents(
     public List<EventMapDto> getEventsForMap() {
         return service.getEventsForMap();
     }
+
+
+    @GetMapping("/pending")
+    public List<Event> getPendingEvents() {
+        return service.getPendingEvents();
+    }
+
+    @PutMapping("/{eventId}/approve")
+    public Event approveEvent(@PathVariable Long eventId) {
+        return service.approveEvent(eventId);
+    }
+
+    @PutMapping("/{eventId}/reject")
+    public Event rejectEvent(@PathVariable Long eventId) {
+        return service.rejectEvent(eventId);
+    }
 }
+

@@ -85,6 +85,20 @@ public class EventService {
 
     // создание события
     public Event createEvent(Event event) {
+//        if (event.getPlace() != null && !event.getPlace().isBlank()) {
+//            GeocodingService.Coordinates coordinates = geocodingService.geocode(event.getPlace());
+//
+//            if (coordinates != null) {
+//                event.setLatitude(coordinates.getLatitude());
+//                event.setLongitude(coordinates.getLongitude());
+//            }
+//        }
+//
+//        return repository.save(event);
+        event.setDateRequest(LocalDate.now());
+        event.setStatus("pending");
+//        event.setDecision(null);
+
         if (event.getPlace() != null && !event.getPlace().isBlank()) {
             GeocodingService.Coordinates coordinates = geocodingService.geocode(event.getPlace());
 
@@ -99,7 +113,7 @@ public class EventService {
 
     // данные для карты
     public List<EventMapDto> getEventsForMap() {
-        return repository.findAll().stream().map(event -> {
+        return repository.findByStatus("approved").stream().map(event -> {
             EventMapDto dto = new EventMapDto();
             dto.setId(event.getId());
             dto.setPlace(event.getPlace());
@@ -135,4 +149,27 @@ public class EventService {
             return dto;
         }).toList();
     }
+
+    public List<Event> getPendingEvents() {
+        return repository.findByStatus("pending");
+    }
+
+    public Event approveEvent(Long eventId) {
+        Event event = repository.findById(eventId)
+                .orElseThrow(() -> new RuntimeException("Заявку не знайдено"));
+
+        event.setStatus("approved");
+
+        return repository.save(event);
+    }
+
+    public Event rejectEvent(Long eventId) {
+        Event event = repository.findById(eventId)
+                .orElseThrow(() -> new RuntimeException("Заявку не знайдено"));
+
+        event.setStatus("rejected");
+
+        return repository.save(event);
+    }
 }
+

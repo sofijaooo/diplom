@@ -95,6 +95,20 @@ function protectPage(options = {}) {
 }
 
 document.addEventListener("DOMContentLoaded", () => {
+
+    // const user = getCurrentUser();
+    //
+    // document.querySelectorAll(".artist-only").forEach(link => {
+    //     if (!user || user.role !== "artist") {
+    //         link.style.display = "none";
+    //     }
+    // });
+    const user = getCurrentUser();
+
+    document.body.classList.toggle(
+        "is-artist",
+        !!user && user.role === "artist"
+    );
     const registerForm = document.getElementById("registerForm");
     const isArtist = document.getElementById("isArtist");
     const artistFields = document.getElementById("artistFields");
