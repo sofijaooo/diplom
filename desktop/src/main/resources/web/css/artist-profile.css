@@ -647,3 +647,8 @@
     object-fit: cover;
     display: block;
 }
+
+.subscribe-button.is-subscribed {
+    background: rgba(255, 255, 255, 0.12);
+    color: #ffffff;
+}

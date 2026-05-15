@@ -5,11 +5,13 @@
     <title>Профіль митця</title>
 
     <link rel="stylesheet" href="../css/app.css" />
+
     <link rel="stylesheet" href="../css/artist-profile.css" />
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link href="https://fonts.googleapis.com/css2?family=Stalinist+One&family=Unbounded:wght@200..900&display=swap" rel="stylesheet">
 
+    <script src="../js/auth.js" defer></script>
     <script src="../js/artist-profile.js" defer></script>
 </head>
 <body>
@@ -94,7 +96,9 @@
             </p>
 
             <div class="artist-actions">
-                <button class="artist-action-btn" data-artist-id="${artist.id}">Підписатися</button>
+                <button class="artist-action-btn subscribe-button" id="subscribeButton">
+                    Підписатися
+                </button>
                 <button class="artist-action-btn artist-action-btn-secondary" id="viewArtistEventsBtn">Переглянути виступи</button>
             </div>
         </div>
