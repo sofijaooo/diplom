@@ -1,6 +1,5 @@
 /* ===== map page only ===== */
 
-/* страница карты: перебиваем только layout main-контента */
 .content {
     width: 100%;
     max-width: 1180px;
@@ -13,7 +12,6 @@
     gap: 24px;
 }
 
-/* заголовок страницы */
 .content h1 {
     margin: 0;
     text-align: center;
@@ -22,14 +20,12 @@
     color: #ffffff;
 }
 
-/* верхняя панель над картой */
 .map-toolbar {
     display: flex;
     justify-content: center;
     align-items: center;
 }
 
-/* свитч темы */
 .map-theme-switch {
     display: inline-flex;
     align-items: center;
@@ -94,7 +90,6 @@
     transform: translateX(24px);
 }
 
-/* блок карты */
 .map-card {
     width: 100%;
     background: rgba(23, 24, 27, 0.92);
@@ -115,7 +110,7 @@
     background: #1c1d21;
 }
 
-/* небольшая подпись/текст, если добавишь позже */
+
 .map-note {
     margin: 0;
     text-align: center;

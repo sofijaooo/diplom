@@ -631,7 +631,7 @@
     opacity: 1;
 }
 
-/* убираем дефолтные search-декорации */
+
 .control-input::-webkit-search-decoration,
 .control-input::-webkit-search-cancel-button,
 .control-input::-webkit-search-results-button,
@@ -661,8 +661,8 @@ input#search {
 
 .filters-center {
     width: 100%;
-    max-width: 520px; /* контролирует ширину блока */
-    margin: 0 auto;   /* центрирует */
+    max-width: 520px;
+    margin: 0 auto;
 
     display: flex;
     flex-direction: column;
@@ -670,12 +670,12 @@ input#search {
     gap: 14px;
 }
 
-/* чтобы инпут не растягивался странно */
+
 .filters-center .control-input {
     width: 100%;
 }
 
-/* фильтры по центру */
+
 .filters-center .filters {
     justify-content: center;
 }

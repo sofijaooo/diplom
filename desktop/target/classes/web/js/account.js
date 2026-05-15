@@ -173,30 +173,6 @@ function updateAvatarPreview(url) {
     img.style.display = "block";
 }
 
-// document.getElementById("artistAvatarFile")?.addEventListener("change", async function () {
-//     const user = getCurrentUser();
-//     const userId = user.id || user.userId;
-//
-//     if (!this.files.length) return;
-//
-//     const formData = new FormData();
-//     formData.append("file", this.files[0]);
-//
-//     const response = await fetch(`http://localhost:8080/api/artist-account/${userId}/avatar`, {
-//         method: "POST",
-//         body: formData
-//     });
-//
-//     const result = await response.json();
-//
-//     if (!response.ok) {
-//         showAuthError(result.message || "Не вдалося завантажити аватарку");
-//         return;
-//     }
-//
-//     updateAvatarPreview(result.avatar_url);
-//     showAuthError("Аватарку оновлено");
-// });
 
 document.getElementById("uploadArtistMediaBtn")?.addEventListener("click", async function () {
     const user = getCurrentUser();

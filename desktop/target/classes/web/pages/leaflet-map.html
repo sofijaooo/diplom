@@ -251,10 +251,12 @@
         zoomAnimation: false
     }).setView([50.9077, 34.7981], 13);
     let tileLayer;
+
     // L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', {
     //     attribution: '&copy; OpenStreetMap & CARTO'
     // }).addTo(map);
-    // функция смены темы
+
+    // функція зміни теми
     function applyTheme(theme) {
         if (tileLayer) {
             map.removeLayer(tileLayer);
@@ -274,16 +276,9 @@
         tileLayer.addTo(map);
     }
 
-    // стартовая тема
+    // початкова тема
     applyTheme("dark");
 
-
-    // 👇 ВОТ ЭТО ДОБАВЛЯЕШЬ
-    // window.addEventListener("message", (event) => {
-    //     if (event.data.type === "SET_THEME") {
-    //         applyTheme(event.data.theme);
-    //     }
-    // });
 
     const markersById = new Map();
 
@@ -372,12 +367,6 @@
 
                 const marker = L.marker([lat, lng], { icon }).addTo(map);
 
-//                 marker.bindPopup(`
-//     <div class="popup-title">Подія #${event.id ?? '-'}</div>
-//     <div class="popup-row"><b>Місце:</b> ${event.place ?? '-'}</div>
-//     <div class="popup-row"><b>Дата:</b> ${event.eventDate ?? '-'}</div>
-//     <div class="popup-row"><b>Час:</b> ${event.time ?? '-'}</div>
-// `);
                 marker.bindPopup(`
     <div class="event-popup">
         <div class="popup-title">Подія #${event.id ?? '-'}</div>
