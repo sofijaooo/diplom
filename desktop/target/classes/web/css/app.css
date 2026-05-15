@@ -216,9 +216,9 @@ body.is-artist .artist-only {
 }
 
 .admin-only {
-    display: none;
+    display: none !important;
 }
 
 body.is-admin .admin-only {
-    display: block;
+    display: block !important;
 }

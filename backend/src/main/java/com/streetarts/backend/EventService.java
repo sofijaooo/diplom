@@ -13,6 +13,8 @@ import com.streetarts.backend.dto.EventMapDto;
 import com.streetarts.backend.dto.EventListDto;
 import java.util.Optional;
 
+
+
 @Service
 public class EventService {
 
@@ -20,7 +22,7 @@ public class EventService {
     private final DataSource dataSource;
     private final GeocodingService geocodingService;
     private final ArtistRepository artistRepository;
-
+    private final NotificationService notificationService;
 //    public EventService(EventRepository repository,
 //                        DataSource dataSource,
 //                        GeocodingService geocodingService) {
@@ -32,11 +34,13 @@ public class EventService {
     public EventService(EventRepository repository,
                         DataSource dataSource,
                         GeocodingService geocodingService,
-                        ArtistRepository artistRepository) {
+                        ArtistRepository artistRepository,
+                        NotificationService notificationService) {
         this.repository = repository;
         this.dataSource = dataSource;
         this.geocodingService = geocodingService;
         this.artistRepository = artistRepository;
+        this.notificationService = notificationService;
     }
 
     // поиск по месту
@@ -206,14 +210,28 @@ private void validateEvent(Event event) {
     public List<Event> getPendingEvents() {
         return repository.findByStatusOrderByIdAsc("pending");
     }
-    public Event approveEvent(Long eventId) {
-        Event event = repository.findById(eventId)
-                .orElseThrow(() -> new RuntimeException("Заявку не знайдено"));
+//    public Event approveEvent(Long eventId) {
+//        Event event = repository.findById(eventId)
+//                .orElseThrow(() -> new RuntimeException("Заявку не знайдено"));
+//
+//        event.setStatus("approved");
+//        Event saved = repository.save(event);
+//
+//        notificationService.notifySubscribersAboutApprovedEvent(saved);
+//        return repository.save(event);
+//    }
+public Event approveEvent(Long eventId) {
+    Event event = repository.findById(eventId)
+            .orElseThrow(() -> new RuntimeException("Заявку не знайдено"));
 
-        event.setStatus("approved");
+    event.setStatus("approved");
 
-        return repository.save(event);
-    }
+    Event saved = repository.save(event);
+
+    notificationService.notifySubscribersAboutApprovedEvent(saved);
+
+    return saved;
+}
 
     public Event rejectEvent(Long eventId, String comment) {
         Event event = repository.findById(eventId)
