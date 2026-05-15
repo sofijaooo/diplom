@@ -163,3 +163,87 @@
         width: 100%;
     }
 }
+
+/*new*/
+
+.artist-requests-section {
+    margin-top: 42px;
+}
+
+.artist-requests-section h2 {
+    margin: 0 0 20px;
+    color: #ffffff;
+    font-size: 24px;
+}
+
+.artist-requests-list {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+}
+
+.artist-request-card {
+    padding: 20px;
+    border-radius: 20px;
+    background: rgba(255, 255, 255, 0.045);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.artist-request-header {
+    display: flex;
+    justify-content: space-between;
+    gap: 16px;
+}
+
+.artist-request-header h3 {
+    margin: 0 0 8px;
+    color: #ffffff;
+    font-size: 17px;
+}
+
+.artist-request-header p,
+.artist-request-comment,
+.artist-requests-empty {
+    margin: 0;
+    color: rgba(255, 255, 255, 0.68);
+    font-size: 14px;
+    line-height: 1.6;
+}
+
+.artist-request-status {
+    height: fit-content;
+    padding: 7px 12px;
+    border-radius: 999px;
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+}
+
+.artist-request-status-pending {
+    background: rgba(250, 174, 98, 0.14);
+    color: #FAAE62;
+}
+
+.artist-request-status-approved {
+    background: rgba(88, 214, 141, 0.14);
+    color: #58D68D;
+}
+
+.artist-request-status-rejected {
+    background: rgba(255, 107, 107, 0.14);
+    color: #FF6B6B;
+}
+
+.artist-request-comment {
+    margin-top: 14px;
+}
+
+.artist-request-comment span {
+    color: rgba(255, 255, 255, 0.9);
+}
+
+@media (max-width: 700px) {
+    .artist-request-header {
+        flex-direction: column;
+    }
+}

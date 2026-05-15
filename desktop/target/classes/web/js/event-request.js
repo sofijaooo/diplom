@@ -374,3 +374,74 @@ function convertDateToBackendFormat(date) {
     const [day, month, year] = date.split(".");
     return `${year}-${month}-${day}`;
 }
+
+document.addEventListener("DOMContentLoaded", () => {
+    loadArtistRequests();
+});
+
+async function loadArtistRequests() {
+    const user = getCurrentUser();
+    const container = document.getElementById("artistRequestsList");
+
+    if (!container) {
+        return;
+    }
+
+    if (!user || user.role !== "artist") {
+        container.innerHTML = `<p class="artist-requests-empty">Заявки доступні лише митцю.</p>`;
+        return;
+    }
+
+    try {
+        const response = await fetch(`http://localhost:8080/api/events/user/${user.id}`);
+
+        if (!response.ok) {
+            throw new Error("Не вдалося завантажити заявки");
+        }
+
+        const events = await response.json();
+
+        if (!events.length) {
+            container.innerHTML = `<p class="artist-requests-empty">Ви ще не подавали заявки.</p>`;
+            return;
+        }
+
+        container.innerHTML = events.map(event => `
+            <article class="artist-request-card">
+                <div class="artist-request-header">
+                    <div>
+                        <h3>${event.place}</h3>
+                        <p>${event.eventDate} · ${event.time}</p>
+                    </div>
+
+                    <span class="artist-request-status artist-request-status-${event.status}">
+                        ${getStatusLabel(event.status)}
+                    </span>
+                </div>
+
+                ${event.comments ? `
+                    <p class="artist-request-comment">
+                        <span>Коментар:</span> ${event.comments}
+                    </p>
+                ` : ""}
+            </article>
+        `).join("");
+
+    } catch (error) {
+        console.error(error);
+        container.innerHTML = `<p class="artist-requests-empty">Помилка завантаження заявок.</p>`;
+    }
+}
+
+function getStatusLabel(status) {
+    switch (status) {
+        case "pending":
+            return "На розгляді";
+        case "approved":
+            return "Погоджено";
+        case "rejected":
+            return "Відхилено";
+        default:
+            return status;
+    }
+}

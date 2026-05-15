@@ -20,4 +20,6 @@ public interface EventRepository extends JpaRepository<Event, Long> {
 
     // поиск по статусу
     List<Event> findByStatus(String status);
+
+    List<Event> findByStatusOrderByIdAsc(String status);
 }

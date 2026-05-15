@@ -200,10 +200,12 @@ private void validateEvent(Event event) {
         }).toList();
     }
 
+//    public List<Event> getPendingEvents() {
+//        return repository.findByStatus("pending");
+//    }
     public List<Event> getPendingEvents() {
-        return repository.findByStatus("pending");
+        return repository.findByStatusOrderByIdAsc("pending");
     }
-
     public Event approveEvent(Long eventId) {
         Event event = repository.findById(eventId)
                 .orElseThrow(() -> new RuntimeException("Заявку не знайдено"));
@@ -222,5 +224,11 @@ private void validateEvent(Event event) {
         return repository.save(event);
     }
 
+    public List<Event> getEventsByUserId(Integer userId) {
+        return repository.findByUserId(userId)
+                .stream()
+                .sorted((e1, e2) -> e2.getDateRequest().compareTo(e1.getDateRequest()))
+                .collect(Collectors.toList());
+    }
 }
 

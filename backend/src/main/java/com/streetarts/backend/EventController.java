@@ -73,21 +73,37 @@ public List<EventListDto> searchEvents(
         return service.getPendingEvents();
     }
 
-    @PutMapping("/{eventId}/approve")
-    public Event approveEvent(@PathVariable Long eventId) {
-        return service.approveEvent(eventId);
-    }
+//    @PutMapping("/{eventId}/approve")
+//    public Event approveEvent(@PathVariable Long eventId) {
+//        return service.approveEvent(eventId);
+//    }
+@PutMapping("/{eventId}/approve")
+public Event approveEvent(@PathVariable("eventId") Long eventId) {
+    return service.approveEvent(eventId);
+}
 
 //    @PutMapping("/{eventId}/reject")
 //    public Event rejectEvent(@PathVariable Long eventId, String comment) {
 //        return service.rejectEvent(eventId, comment);
 //    }
-    @PutMapping("/{eventId}/reject")
-    public Event rejectEvent(
-            @PathVariable Long eventId,
-            @RequestBody Map<String, String> body
-    ) {
-        return service.rejectEvent(eventId, body.get("comment"));
+//    @PutMapping("/{eventId}/reject")
+//    public Event rejectEvent(
+//            @PathVariable Long eventId,
+//            @RequestBody Map<String, String> body
+//    ) {
+//        return service.rejectEvent(eventId, body.get("comment"));
+//    }
+@PutMapping("/{eventId}/reject")
+public Event rejectEvent(
+        @PathVariable("eventId") Long eventId,
+        @RequestBody Map<String, String> body
+) {
+    return service.rejectEvent(eventId, body.get("comment"));
+}
+
+    @GetMapping("/user/{userId}")
+    public List<Event> getEventsByUserId(@PathVariable("userId") Integer userId) {
+        return service.getEventsByUserId(userId);
     }
 }
 

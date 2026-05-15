@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <title>Модерація подій</title>
+
+    <link rel="stylesheet" href="../css/app.css">
+    <link rel="stylesheet" href="../css/event-request.css">
+    <link rel="stylesheet" href="../css/moderation.css">
+
+    <script src="../js/auth.js" defer></script>
+    <script src="../js/moderation.js" defer></script>
+</head>
+
+<body>
+<header class="sidebar">
+    <div class="logo">StreetArt Live</div>
+
+    <nav>
+        <div>
+            <a href="../index.html">Головна</a>
+        </div>
+
+        <div>
+            <a href="map.html">Мапа подій</a>
+        </div>
+
+        <div>
+            <a href="list-events.html">Події</a>
+        </div>
+
+        <div>
+            <a href="performers.html">Митці</a>
+        </div>
+
+        <div class="artist-only">
+            <a href="event-request.html">Заявка на подію</a>
+        </div>
+
+        <div class="admin-only">
+            <a href="moderation.html" class="active">Модерація</a>
+        </div>
+
+        <div>
+            <a href="account.html">Акаунт</a>
+        </div>
+    </nav>
+</header>
+
+<main class="content event-request-content">
+    <section class="event-request-page">
+        <div class="event-request-card moderation-card-wrapper">
+            <p class="event-request-label">Адміністратор</p>
+
+            <h1>Модерація подій</h1>
+
+            <p class="event-request-text">
+                Перегляньте заявки митців, погодьте події або відхиліть їх із коментарем.
+                Після погодження подія стане доступною на платформі.
+            </p>
+
+            <div id="pendingEventsList" class="moderation-list">
+                <p class="moderation-empty">Завантаження заявок...</p>
+            </div>
+        </div>
+    </section>
+</main>
+</body>
+</html>
