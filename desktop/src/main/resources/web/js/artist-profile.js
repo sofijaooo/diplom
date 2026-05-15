@@ -72,9 +72,6 @@ function renderArtistProfile(artist) {
 
     const subscribeButton = document.getElementById("subscribeButton");
 
-    // if (subscribeButton) {
-    //     subscribeButton.dataset.artistId = artist.id;
-    // }
     if (subscribeButton) {
         subscribeButton.dataset.artistId = artist.id;
         updateSubscribeButtonState(artist.id);
@@ -220,47 +217,6 @@ function renderArtistMedia(media) {
     });
 }
 
-
-// document.addEventListener("click", async (event) => {
-//     const button = event.target.closest(".subscribe-button");
-//
-//     if (!button) {
-//         return;
-//     }
-//
-//     const user = getCurrentUser();
-//
-//     if (!user) {
-//         alert("Щоб підписатися, потрібно увійти в акаунт");
-//         return;
-//     }
-//
-//     const artistId = button.dataset.artistId;
-//
-//     try {
-//         const response = await fetch("http://localhost:8080/api/subscriptions", {
-//             method: "POST",
-//             headers: {
-//                 "Content-Type": "application/json"
-//             },
-//             body: JSON.stringify({
-//                 viewerId: user.id,
-//                 artistId: artistId
-//             })
-//         });
-//
-//         if (!response.ok) {
-//             throw new Error("Помилка підписки");
-//         }
-//
-//         button.textContent = "Ви підписані";
-//         button.disabled = true;
-//
-//     } catch (error) {
-//         console.error(error);
-//         alert("Не вдалося оформити підписку");
-//     }
-// });
 
 document.addEventListener("click", async (event) => {
     const button = event.target.closest(".subscribe-button");

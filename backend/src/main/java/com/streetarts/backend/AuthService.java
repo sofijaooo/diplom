@@ -141,7 +141,7 @@ public class AuthService {
                 throw new RuntimeException("Місто має містити лише літери (мінімум 2 символи)");
             }
 
-// description НЕ обов’язковий
+
             if (request.artistAbout != null && request.artistAbout.length() > 500) {
                 throw new RuntimeException("Опис не може перевищувати 500 символів");
             }

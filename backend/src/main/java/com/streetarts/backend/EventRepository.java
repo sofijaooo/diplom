@@ -9,16 +9,16 @@ import java.util.List;
 @Repository
 public interface EventRepository extends JpaRepository<Event, Long> {
 
-    // поиск по месту проведения
+    // пошук по місцю проведення
     List<Event> findByPlaceContainingIgnoreCase(String place);
 
-    // поиск по user_id
+    // пошук по user_id
     List<Event> findByUserId(Integer userId);
 
-    // поиск по дате события
+    // пошук по даті івента
     List<Event> findByEventDate(LocalDate eventDate);
 
-    // поиск по статусу
+    // пошук по статусу
     List<Event> findByStatus(String status);
 
     List<Event> findByStatusOrderByIdAsc(String status);

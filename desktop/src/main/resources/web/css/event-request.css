@@ -1,14 +1,4 @@
-/*.event-request-content {*/
-/*    display: flex;*/
-/*    align-items: flex-start;*/
-/*    justify-content: center;*/
-/*}*/
 
-/*.event-request-page {*/
-/*    width: 100%;*/
-/*    max-width: 920px;*/
-/*    padding: 80px 0 80px;*/
-/*}*/
 .event-request-content {
     display: block;
     overflow-y: auto;
@@ -124,30 +114,6 @@
     min-height: 130px;
     resize: vertical;
 }
-
-/*.event-request-button {*/
-/*    align-self: flex-start;*/
-
-/*    min-width: 230px;*/
-/*    padding: 15px 26px;*/
-
-/*    border: none;*/
-/*    border-radius: 16px;*/
-
-/*    background: linear-gradient(135deg, #FAAE62, #ff6b35);*/
-/*    color: #111111;*/
-
-/*    font-size: 14px;*/
-/*    font-weight: 800;*/
-/*    font-family: 'Unbounded', sans-serif;*/
-
-/*    cursor: pointer;*/
-/*}*/
-
-/*.event-request-button:hover {*/
-/*    transform: translateY(-2px);*/
-/*    box-shadow: 0 14px 34px rgba(250, 174, 98, 0.25);*/
-/*}*/
 
 .auth-error {
     margin: 0 0 18px;

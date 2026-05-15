@@ -23,13 +23,7 @@ public class EventService {
     private final GeocodingService geocodingService;
     private final ArtistRepository artistRepository;
     private final NotificationService notificationService;
-//    public EventService(EventRepository repository,
-//                        DataSource dataSource,
-//                        GeocodingService geocodingService) {
-//        this.repository = repository;
-//        this.dataSource = dataSource;
-//        this.geocodingService = geocodingService;
-//    }
+
 
     public EventService(EventRepository repository,
                         DataSource dataSource,
@@ -43,21 +37,6 @@ public class EventService {
         this.notificationService = notificationService;
     }
 
-    // поиск по месту
-//    public List<Event> searchEvents(String query) {
-//        try (Connection con = dataSource.getConnection()) {
-//            if (!con.isValid(2)) {
-//                System.out.println("[EVENT DB] Warning: connection not valid");
-//            }
-//        } catch (Exception e) {
-//            System.out.println("[EVENT DB] Exception: " + e.getMessage());
-//        }
-//
-//        if (query == null || query.isBlank()) {
-//            return repository.findAll();
-//        }
-//        return repository.findByPlaceContainingIgnoreCase(query);
-//    }
 
     public List<Event> searchEvents(String search, String date, String time) {
         List<Event> events = repository.findByStatus("approved");
@@ -87,8 +66,6 @@ public class EventService {
                 .collect(Collectors.toList());
     }
 
-    // создание события
-
     public Event createEvent(Event event) {
         validateEvent(event);
 
@@ -106,32 +83,7 @@ public class EventService {
 
         return repository.save(event);
     }
-//    public Event createEvent(Event event) {
-////        if (event.getPlace() != null && !event.getPlace().isBlank()) {
-////            GeocodingService.Coordinates coordinates = geocodingService.geocode(event.getPlace());
-////
-////            if (coordinates != null) {
-////                event.setLatitude(coordinates.getLatitude());
-////                event.setLongitude(coordinates.getLongitude());
-////            }
-////        }
-////
-////        return repository.save(event);
-//        event.setDateRequest(LocalDate.now());
-//        event.setStatus("pending");
-////        event.setDecision(null);
-//
-//        if (event.getPlace() != null && !event.getPlace().isBlank()) {
-//            GeocodingService.Coordinates coordinates = geocodingService.geocode(event.getPlace());
-//
-//            if (coordinates != null) {
-//                event.setLatitude(coordinates.getLatitude());
-//                event.setLongitude(coordinates.getLongitude());
-//            }
-//        }
-//
-//        return repository.save(event);
-//    }
+
 private void validateEvent(Event event) {
     if (event.getUserId() == null) {
         throw new IllegalArgumentException("Користувача не знайдено");
@@ -165,7 +117,7 @@ private void validateEvent(Event event) {
         throw new IllegalArgumentException("Коментар не може бути довшим за 255 символів");
     }
 }
-    // данные для карты
+
     public List<EventMapDto> getEventsForMap() {
         return repository.findByStatus("approved").stream().map(event -> {
             EventMapDto dto = new EventMapDto();
@@ -204,22 +156,11 @@ private void validateEvent(Event event) {
         }).toList();
     }
 
-//    public List<Event> getPendingEvents() {
-//        return repository.findByStatus("pending");
-//    }
+
     public List<Event> getPendingEvents() {
         return repository.findByStatusOrderByIdAsc("pending");
     }
-//    public Event approveEvent(Long eventId) {
-//        Event event = repository.findById(eventId)
-//                .orElseThrow(() -> new RuntimeException("Заявку не знайдено"));
-//
-//        event.setStatus("approved");
-//        Event saved = repository.save(event);
-//
-//        notificationService.notifySubscribersAboutApprovedEvent(saved);
-//        return repository.save(event);
-//    }
+
 public Event approveEvent(Long eventId) {
     Event event = repository.findById(eventId)
             .orElseThrow(() -> new RuntimeException("Заявку не знайдено"));

@@ -30,18 +30,7 @@ public class EventController {
         this.service = service;
     }
 
-//    @GetMapping
-//    public List<Event> searchEvents(@RequestParam(name = "search", required = false) String search) {
-//        return service.searchEvents(search);
-//    }
-//@GetMapping
-//public List<Event> searchEvents(
-//        @RequestParam(name = "search", required = false) String search,
-//        @RequestParam(name = "date", required = false) String date,
-//        @RequestParam(name = "time", required = false) String time
-//) {
-//    return service.searchEvents(search, date, time);
-//}
+
 @GetMapping
 public List<EventListDto> searchEvents(
         @RequestParam(name = "search", required = false) String search,
@@ -73,26 +62,11 @@ public List<EventListDto> searchEvents(
         return service.getPendingEvents();
     }
 
-//    @PutMapping("/{eventId}/approve")
-//    public Event approveEvent(@PathVariable Long eventId) {
-//        return service.approveEvent(eventId);
-//    }
 @PutMapping("/{eventId}/approve")
 public Event approveEvent(@PathVariable("eventId") Long eventId) {
     return service.approveEvent(eventId);
 }
 
-//    @PutMapping("/{eventId}/reject")
-//    public Event rejectEvent(@PathVariable Long eventId, String comment) {
-//        return service.rejectEvent(eventId, comment);
-//    }
-//    @PutMapping("/{eventId}/reject")
-//    public Event rejectEvent(
-//            @PathVariable Long eventId,
-//            @RequestBody Map<String, String> body
-//    ) {
-//        return service.rejectEvent(eventId, body.get("comment"));
-//    }
 @PutMapping("/{eventId}/reject")
 public Event rejectEvent(
         @PathVariable("eventId") Long eventId,

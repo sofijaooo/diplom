@@ -4,11 +4,7 @@
     padding: 0;
 }
 
-/*html, body {*/
-/*    height: 100%;*/
-/*    overflow: hidden;        !* запрещаем прокрутку страницы *!*/
-/*    font-size: clamp(14px, 1vw, 16px);*/
-/*}*/
+
 html{
     height: 100%;
     overflow: hidden;
@@ -19,7 +15,7 @@ body{
 
 }
 
-/* ОСНОВНАЯ СТРУКТУРА */
+
 body {
     display: flex;
     font-family: 'Unbounded', sans-serif;
@@ -27,10 +23,9 @@ body {
     color: #cccccc;
 }
 
-/* ЛЕВАЯ БОКОВАЯ ПАНЕЛЬ */
+
 .topbar {
     width: 280px;
-    /*height: 100vh;          !* фикс по высоте*!*/
     height: auto;
     flex-shrink: 0;
 
@@ -46,10 +41,10 @@ body {
 
     border-right: 1px solid rgba(255, 0, 0, 0.15);
 
-    overflow: hidden;        /*запрещаем скролл сайдбара */
+    overflow: hidden;
 }
 
-/* Навигация */
+
 .topbar nav {
     display: flex;
     flex-direction: column;
@@ -63,24 +58,11 @@ body {
     align-items: center;
 }
 
-/*.topbar a:hover {*/
-/*    color: #ff2b2b;*/
-/*}*/
-
-/* MAIN */
-/*.content {*/
-/*    flex: 1;*/
-/*    height: 100vh;          !* занимает высоту экрана*!*/
-/*    padding: 60px;*/
-
-/*    overflow-y: auto;       !*вертикальный скролл только тут *!*/
-/*    overflow-x: hidden;      !*запрещаем горизонтальный скролл *!*/
-/*}*/
 .content {
     flex: 1;
     height: 100vh;
     padding: 60px;
-    padding-bottom: 120px; /* чтобы кнопки не прилипали к низу */
+    padding-bottom: 120px;
     overflow-y: auto;
 }
 .logo{

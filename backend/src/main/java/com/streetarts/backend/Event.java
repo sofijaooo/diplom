@@ -13,22 +13,22 @@ public class Event {
     private Long id;
 
     @Column(name = "user_id", nullable = false)
-    private Integer userId;  // user_id в таблице — INT, ссылка на users
+    private Integer userId;  // user_id
 
     @Column(name = "place", nullable = false, length = 100)
-    private String place;    // место проведения события
+    private String place;    // місце
 
     @Column(name = "time", nullable = false)
-    private LocalTime time;  // время события
+    private LocalTime time;  // час
 
     @Column(name = "date_request")
-    private LocalDate dateRequest; // дата создания заявки, default CURRENT_DATE
+    private LocalDate dateRequest; // дата  default CURRENT_DATE
 
     @Column(name = "event_date", nullable = false)
-    private LocalDate eventDate;   // дата события
+    private LocalDate eventDate;   // дата
 
     @Column(name = "comments", length = 255)
-    private String comments;       // комментарии
+    private String comments;       // коментарі
 
     @Column(name = "status", nullable = false, length = 20)
     private String status = "pending";
@@ -37,7 +37,7 @@ public class Event {
 
     private Double longitude;
 
-    // --- Геттеры и сеттеры ---
+    // --- Геттери і сеттери ---
 
     public Long getId() {
         return id;
