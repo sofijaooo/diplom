@@ -20,7 +20,7 @@
     width: 100%;
     max-width: 920px;
     margin: 0 auto;
-    padding: 120px 24px 80px;
+    /*padding: 120px 24px 80px;*/
     box-sizing: border-box;
 }
 .event-request-card {
